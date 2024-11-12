@@ -1,0 +1,149 @@
+/* Bookshelf container */
+.bookshelf {
+  padding: 20px 0px 0px 0px;
+  /* Adjust padding to not affect the bottom */
+  background-color: #e1d3c3;
+  border: 10px solid #8b4513;
+  border-radius: 10px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
+  margin: 20px;
+  position: relative;
+  /* Ensure bookshelf is the reference for positioning */
+}
+
+/* Flex container for each row */
+.book-row {
+  display: flex;
+  justify-content: flex-start;
+  gap: 12px;
+  margin-bottom: 20px;
+  /* Default margin for each row */
+  position: relative;
+}
+
+/* Remove the bottom margin only for the last row */
+.book-row:last-child {
+  margin-bottom: 0;
+  /* No margin after the last row */
+}
+
+/* Shelf line below each row */
+.shelf-line {
+  position: absolute;
+  width: 100%;
+  height: 6px;
+  background-color: #8b4513;
+  bottom: -6px;
+  left: 0;
+}
+
+/* Make sure there's no gap below the last shelf line */
+.bookshelf .book-row:last-child .shelf-line {
+  bottom: 0;
+  /* Set shelf line to be at the bottom of the bookshelf */
+}
+
+/* Book card styling */
+.book-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  width: 90px;
+  height: 140px;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Book cover image */
+.book-cover {
+  width: 80px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 3px;
+  margin-bottom: 4px;
+}
+
+/* Title and author formatting */
+.book-title,
+.book-author {
+  font-size: 12px;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+/* Hover effect for book card */
+/* .book-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+} */
+
+/* Book card styling */
+.book-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  width: 90px;
+  height: 140px;
+  overflow: hidden;
+  text-align: center;
+  cursor: pointer;
+  /* Change cursor to pointer when hovering over book card */
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for book card */
+/* .book-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+} */
+
+/* .book-card:hover {
+  box-shadow: 0px 6px 15px rgba(216, 3, 3, 0.2);
+} */
+.book-card:hover {
+  background-color: #ebe7e7;
+  /* Light gray background on hover */
+  border-color: #8b4513;
+  /* Darker border on hover */
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.book-card {
+  overflow: hidden;
+  position: relative;
+}
+
+.book-card:hover .book-cover {
+  transform: translateY(-5px);
+  /* Slide up */
+}
+
+.book-card:hover .book-title,
+.book-card:hover .book-author {
+  transform: translateY(5px);
+  /* Slide down for title and author */
+}
