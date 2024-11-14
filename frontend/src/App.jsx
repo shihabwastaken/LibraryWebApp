@@ -6,8 +6,8 @@ function App() {
 
   return (
     <div className="App">
-      {/* <h1>Library Bookshelf</h1> */}
-      <Bookshelf books={books} />
+      <h1>Library Bookshelf</h1>
+      <Bookshelf books={books.slice(0,15)} />
     </div>
   );
 }

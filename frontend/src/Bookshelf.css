@@ -1,160 +1,101 @@
 /* Bookshelf container */
 .bookshelf {
   padding: 20px 0px 0px 0px;
-  /* Adjust padding to not affect the bottom */
   background-color: #594438;
-  /* border: 10px solid #8b4513; */
-  border: 25px solid transparent;
-  /* Define the border width */
-  border-image: url('./assets/wood-texture.jpeg') 40 stretch;
-  /* Image URL and settings */
+  
+  /* Define top and bottom borders */
+  border-top: 30px solid transparent;
+  border-bottom: 40px solid transparent;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  
+  /* Set the wood texture image for borders */
+  border-image: url('./assets/wood-texture.jpeg') 30 25 40 25 stretch;
   border-radius: 10px;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
   margin: 20px;
-  position: relative;
-  /* Ensure bookshelf is the reference for positioning */
-}
-
-.image-background {
-  width: 100%;
-  /* Set the width of the div */
-  height: 100%;
-  /* Set the height of the div */
-  background-image: url('./assets/');
-  /* Image path */
-  background-size: cover;
-  /* Makes the image cover the entire div */
-  background-position: center;
-  /* Centers the image within the div */
-}
-
-
-
-/* Flex container for each row */
-.book-row {
-  display: flex;
-  justify-content: flex-start;
-  gap: 12px;
-  margin-bottom: 20px;
-  /* Default margin for each row */
   position: relative;
 }
 
 /* Remove the bottom margin only for the last row */
 .book-row:last-child {
-  margin-bottom: 0;
-  /* No margin after the last row */
+  margin-bottom: 0; /* No margin after the last row */
 }
 
-/* Shelf line below each row */
+/* Make sure there's no last shelf line */
+.bookshelf .book-row:last-child .shelf-line {
+  display: none; /* Set shelf line to be at the bottom of the bookshelf */
+}
+
+/* Flex container for each row */
+.book-row {
+  display: flex;
+  justify-content: flex-start;
+  gap: 15px; /* Adjusted gap between books */
+  margin-bottom: 50px; /* Increased space between rows */
+  position: relative;
+}
+
+/* Shelf line adjustments for more space above books */
 .shelf-line {
   position: absolute;
   width: 100%;
-  height: 10px;
+  height: 12px; /* Thicker shelf line */
   background-color: #683008;
-  bottom: -6px;
-  left: 0;
-  border: none;
+  bottom: -15px; /* Adjusted position for more space above books */
   background-image: url('./assets/wood-texture.jpeg');
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-
-/* Make sure there's no gap below the last shelf line */
-.bookshelf .book-row:last-child .shelf-line {
-  bottom: 0;
-  /* Set shelf line to be at the bottom of the bookshelf */
+/* Hover effect for book card */
+.book-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Book card styling */
-/* .book-card {
+.book-card:hover .book-title,
+.book-card:hover .book-author {
+  transform: translateY(5px); /* Slide down for title and author */
+}
+
+/* Larger and wider book-card for a typical book look */
+.book-card {
+  width: 140px; /* Increased width */
+  height: 220px; /* Increased height */
+  padding: 12px; /* Maintain some padding */
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #fff;
-  padding: 8px;
   border-radius: 4px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  width: 90px;
-  height: 140px;
   overflow: hidden;
   text-align: center;
-} */
-
-/* Book cover image */
-.book-cover {
-  width: 80px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 3px;
-  margin-bottom: 4px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 
-/* Title and author formatting */
+/* Adjusted book cover to fit the larger card */
+.book-cover {
+  width: 120px; /* Wider cover */
+  height: 160px; /* Taller cover */
+  object-fit: cover;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+/* Title and author adjustments for larger card */
 .book-title,
 .book-author {
-  font-size: 12px;
+  font-size: 15px; /* Slightly larger font */
+  line-height: 1.3; /* More readable spacing */
   color: #333;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
-}
-
-/* Hover effect for book card */
-/* .book-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-} */
-
-/* Book card styling */
-.book-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #fff;
-  padding: 8px;
-  border-radius: 4px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  width: 90px;
-  height: 140px;
-  overflow: hidden;
   text-align: center;
-  cursor: pointer;
-  /* Change cursor to pointer when hovering over book card */
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-}
-
-/* Hover effect for book card */
-/* .book-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-} */
-
-/* .book-card:hover {
-  box-shadow: 0px 6px 15px rgba(216, 3, 3, 0.2);
-} */
-.book-card:hover {
-  background-color: #ebe7e7;
-  /* Light gray background on hover */
-  border-color: #8b4513;
-  /* Darker border on hover */
-}
-
-
-.book-card {
-  overflow: hidden;
-  position: relative;
-}
-
-.book-card:hover .book-cover {
-  transform: translateY(-5px);
-  /* Slide up */
-}
-
-.book-card:hover .book-title,
-.book-card:hover .book-author {
-  transform: translateY(5px);
-  /* Slide down for title and author */
+  font-family: Arial, sans-serif;
+  font-weight: bold;
 }
