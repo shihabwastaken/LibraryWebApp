@@ -1,0 +1,36 @@
+/* Footer container and layout */
+.footer {
+    background-color: #222; /* Dark background for footer */
+    color: #d2c3c3; /* Light text */
+  }
+  
+  .footer h5 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+  
+  .footer .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  .footer .social-icons a {
+    transition: transform 0.3s ease;
+  }
+  
+  .footer .social-icons a:hover {
+    transform: scale(1.1); /* Slight zoom on hover for social icons */
+  }
+  
+  .footer .row {
+    margin-bottom: 15px;
+  }
+  
+  @media (max-width: 768px) {
+    .footer .social-icons {
+      justify-content: center; /* Center social icons on small screens */
+    }
+  }
+  

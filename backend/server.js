@@ -45,12 +45,6 @@ app.get('/api/bookshelf/:id', async (req, res) => {
   })
 
 
-
-// app.get('/api/bookshelf/:title', (req, res)=>{
-//     const book = Book.find((b) => b.id == req.params.id);
-//     res.json(book);
-// })
-
 // app.use(express.json()); // Middleware to parse JSON bodies
 // app.use('/api', bookRoutes); // Use the book routes
 

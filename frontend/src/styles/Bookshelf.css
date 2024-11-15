@@ -10,7 +10,7 @@
   border-right: 25px solid transparent;
   
   /* Set the wood texture image for borders */
-  border-image: url('./assets/wood-texture.jpeg') 30 25 40 25 stretch;
+  border-image: url('../assets/wood-texture.jpeg') 30 25 40 25 stretch;
   border-radius: 10px;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
   margin: 20px;
@@ -43,7 +43,7 @@
   height: 12px; /* Thicker shelf line */
   background-color: #683008;
   bottom: -15px; /* Adjusted position for more space above books */
-  background-image: url('./assets/wood-texture.jpeg');
+  background-image: url('../assets/wood-texture.jpeg');
   background-size: cover;
   background-repeat: no-repeat;
 }

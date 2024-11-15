@@ -1,68 +1,38 @@
-// import React from 'react';
-// import { Navbar, Nav, Container, NavDropdown, Button, Form, FormControl } from 'react-bootstrap';
-// import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { FaBook, FaSignInAlt, FaUser, FaFileAlt, FaInfoCircle } from 'react-icons/fa'; // Importing icons from react-icons
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+// import '../Header.css'; // Custom CSS (optional)
 
-// const Header = ({ user, onLogout }) => {
-//   const navigate = useNavigate();
+const Header = () => {
+    return (
+        <header className="header navbar navbar-expand-lg navbar-dark bg-dark" >
+            <div className="container-xl">
+                <a href="/" className="navbar-brand">LibTurd</a>
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav ms-auto">
+                        <li className="nav-item">
+                            <a href="/bookshelf" className="nav-link"><FaBook /> Bookshelf</a> {/* Book icon */}
+                        </li>
+                        <li className="nav-item">
+                            <a href="/login" className="nav-link"><FaSignInAlt /> Login</a> {/* Login icon */}
+                        </li>
+                        <li className="nav-item">
+                            <a href="/profile" className="nav-link"><FaUser /> User Profile</a> {/* User icon */}
+                        </li>
+                        <li className="nav-item">
+                            <a href="/contract" className="nav-link"><FaFileAlt /> Contract</a> {/* Contract icon */}
+                        </li>
+                        <li className="nav-item">
+                            <a href="/about" className="nav-link"><FaInfoCircle /> About</a> {/* Info icon */}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+    );
+};
 
-//   const handleSearch = (e) => {
-//     e.preventDefault();
-//     const query = e.target.search.value;
-//     navigate(`/search?query=${query}`);
-//   };
-
-//   return (
-//     <header>
-//       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
-//         <Container>
-//           {/* Brand Logo */}
-//           <Navbar.Brand as={Link} to="/">
-//             Bookshelf
-//           </Navbar.Brand>
-
-//           {/* Toggle Button for Mobile View */}
-//           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-//           <Navbar.Collapse id="basic-navbar-nav">
-            
-//             {/* Search Form */}
-//             <Form className="d-flex ms-auto" onSubmit={handleSearch}>
-//               <FormControl
-//                 type="search"
-//                 name="search"
-//                 placeholder="Search books..."
-//                 className="me-2"
-//                 aria-label="Search"
-//               />
-//               <Button variant="outline-light" type="submit">Search</Button>
-//             </Form>
-            
-//             {/* Navigation Links */}
-//             <Nav className="ms-auto">
-//               <Nav.Link as={Link} to="/books">Books</Nav.Link>
-//               <Nav.Link as={Link} to="/library">My Library</Nav.Link>
-//               <Nav.Link as={Link} to="/wishlist">Wishlist</Nav.Link>
-//               <Nav.Link as={Link} to="/borrowed">Borrowed Books</Nav.Link>
-
-//               {/* Account Dropdown */}
-//               {user ? (
-//                 <NavDropdown title="Account" id="account-dropdown">
-//                   <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
-//                   <NavDropdown.Item as={Link} to="/settings">Settings</NavDropdown.Item>
-//                   <NavDropdown.Divider />
-//                   <NavDropdown.Item onClick={onLogout}>Logout</NavDropdown.Item>
-//                 </NavDropdown>
-//               ) : (
-//                 <>
-//                   <Nav.Link as={Link} to="/login">Login</Nav.Link>
-//                   <Nav.Link as={Link} to="/register">Sign Up</Nav.Link>
-//                 </>
-//               )}
-//             </Nav>
-//           </Navbar.Collapse>
-//         </Container>
-//       </Navbar>
-//     </header>
-//   );
-// };
-
-// export default Header;
+export default Header;
