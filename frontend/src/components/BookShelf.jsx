@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
+// import BookCard from './BookCard.jsx';
+
+
 
 const Bookshelf = ({ books }) => {
     const calculateBooksPerRow = () => Math.max(1, Math.floor(window.innerWidth / 150)); // Minimum of 1 book per row
 
     const [booksPerRow, setBooksPerRow] = useState(calculateBooksPerRow());
 
+
+
+    
     useEffect(() => {
         const handleResize = () => {
             setBooksPerRow(calculateBooksPerRow());
@@ -31,6 +37,7 @@ const Bookshelf = ({ books }) => {
                             <img src={book.coverImage} alt={book.title} className="book-cover" />
                             <div className="book-title">{book.title}</div>
                             <div className="book-author">{book.author}</div>
+                           
                         </div>
                     ))}
                     <div className="shelf-line"></div>
