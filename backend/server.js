@@ -9,6 +9,7 @@ import cors from 'cors';
 
 const port = process.env.PORT || 5000;
 connectDB();
+
 const app = express();
 
 app.use(cors());
@@ -33,7 +34,15 @@ app.get('/api/bookshelf', async (req, res) => {
 
 
 
-
+app.get('/api/bookshelf/:id', async (req, res) => {
+  try {
+    const book = await Book.findById(req.params.id); // Fetch the book by ID
+    res.json(book); // Send the book as a JSON response
+  } catch (error) {
+    console.error('Error fetching book:', error);
+    res.status(500).json({ message: 'Error fetching book' });
+  }
+  })
 
 
 

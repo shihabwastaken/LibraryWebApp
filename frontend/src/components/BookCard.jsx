@@ -1,12 +1,38 @@
-const BookCard = ({ index, book }) => {
+
+const BookCard = ({ book }) => {
+    const handleOpenPDF = () => {
+      if (book.pdfLink) {
+        window.open(book.pdfLink, "_blank"); // Opens the PDF in a new tab
+      } else {
+        alert("No PDF link available for this book.");
+      }
+    };
+  
     return (
-      <div key={index} className="book-card" onClick={() => alert(`You clicked on ${book.title}`)}>
-        <img src={book.coverImage} alt={book.title} className="book-cover" />
-        <div className="book-title">{book.title}</div>
-        <div className="book-author">{book.author}</div>
+      <div className="book-card" onClick={handleOpenPDF}>
+        <img src={book.coverImageLink} alt={book.title} className="book-cover-full" />
       </div>
     );
   };
   
   export default BookCard;
   
+
+
+  /* AFTER ROUTING*/
+
+  
+  /*import { Link } from 'react-router-dom';
+
+const BookCard = ({ index, book }) => {
+  return (
+    <div key={index} className="book-card">
+      <Link to={`/reading/${book._id}`}>
+        <img src={book.coverImage} alt={book.title} className="book-cover" />
+      </Link>
+    </div>
+  );
+};
+
+export default BookCard;
+  */

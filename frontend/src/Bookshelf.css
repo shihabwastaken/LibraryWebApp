@@ -60,10 +60,10 @@
 }
 
 /* Larger and wider book-card for a typical book look */
-.book-card {
-  width: 140px; /* Increased width */
-  height: 220px; /* Increased height */
-  padding: 12px; /* Maintain some padding */
+/* .book-card {
+  width: 140px;  
+  height: 220px;
+  padding: 12px; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -74,9 +74,9 @@
   text-align: center;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.3s ease;
-}
+} */
 
-/* Adjusted book cover to fit the larger card */
+/* okaay Adjusted book cover to fit the larger card */
 .book-cover {
   width: 120px; /* Wider cover */
   height: 160px; /* Taller cover */
@@ -99,3 +99,32 @@
   font-family: Arial, sans-serif;
   font-weight: bold;
 }
+/*test*/
+.book-card {
+  cursor: pointer;
+  width: 150px; /* Fixed width for all book cards */
+  height: 230px; /* Fixed height for all book cards */
+  overflow: hidden;
+  border: none;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centers the image inside the card */
+  background-color: #f5f5f5; /* Optional: Add a background color for empty spaces */
+}
+
+.book-card:hover {
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.book-cover-full {
+  width: 100%; /* Fill the width of the card */
+  height: 100%; /* Fill the height of the card */
+  object-fit: cover; /* Ensures the image covers the entire card, cropping excess */
+  display: block;
+}
+
+
+
+
