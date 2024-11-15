@@ -1,7 +1,8 @@
 /* Bookshelf container */
 .bookshelf {
-  padding: 20px 0px 0px 0px;
+  padding: 40px 2px 2px 2px;
   background-color: #594438;
+  /* background-color: #613e2a; */
   
   /* Define top and bottom borders */
   border-top: 30px solid transparent;

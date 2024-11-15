@@ -1,4 +1,4 @@
-/* Navbar container and layout */
+Navbar container and layout
 .navbar {
   padding: 15px 50px; /* Increased top and bottom padding */
   background-color: #f8f9fa; /* Light background */
@@ -10,7 +10,7 @@
   font-size: 2rem; /* Larger font size for the logo */
   font-weight: bold;
   color: #d2c3c3; /* Dark color for the logo */
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   letter-spacing: 2px;
   margin-left: -10px; /* Adjusted margin to move left */
   padding: 0 15px; /* Padding to add some space around the logo */
