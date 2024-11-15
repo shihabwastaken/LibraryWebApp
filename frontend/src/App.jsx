@@ -1,22 +1,32 @@
-import React from 'react';
+// frontend/App.js
+import React, { useState, useEffect } from 'react';
 import Bookshelf from './components/BookShelf.jsx';
-import books from './books.js';
-// import BookCard from './components/BookCard.jsx';
 import Navbar from './components/Navbar.jsx';
-// import Header from './components/Header.jsx';
 
-const test = 100;
+const App = () => {
+  const [books, setBooks] = useState([]); // State to hold books from backend
 
-function App() {
+  useEffect(() => {
+    // Fetch books from backend when the component mounts
+    const fetchBooks = async () => {
+      try {
+        const res = await fetch('http://localhost:5000/api/bookshelf');
+        const data = await res.json();
+        setBooks(data); // Set books to the state
+      } catch (error) {
+        console.error('Error fetching books:', error);
+      }
+    };
+
+    fetchBooks(); // Call the function to fetch books
+  }, []); // Empty dependency array to run once when the component mounts
 
   return (
     <div className="App">
-      {/* <Header className="App-header"/> */}
-      {/* <h1>Library Bookshelf</h1> */}
       <Navbar />
-      <Bookshelf books={books.slice(0, test)} />
+      <Bookshelf books={books} />
     </div>
   );
-}
+};
 
 export default App;
