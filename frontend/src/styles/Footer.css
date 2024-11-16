@@ -1,36 +1,19 @@
-/* Footer container and layout */
+/* Footer */
 .footer {
-    background-color: #222; /* Dark background for footer */
-    color: #d2c3c3; /* Light text */
-  }
-  
-  .footer h5 {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-    font-weight: bold;
-  }
-  
-  .footer .social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-  }
-  
-  .footer .social-icons a {
-    transition: transform 0.3s ease;
-  }
-  
-  .footer .social-icons a:hover {
-    transform: scale(1.1); /* Slight zoom on hover for social icons */
-  }
-  
-  .footer .row {
-    margin-bottom: 15px;
-  }
-  
-  @media (max-width: 768px) {
-    .footer .social-icons {
-      justify-content: center; /* Center social icons on small screens */
-    }
-  }
-  
+  background-color: #222;
+  color: #d2c3c3;
+  text-align: center;
+  padding: 20px 0;
+  position: relative; /* Default position */
+  margin-top: auto; /* Push footer to bottom if content is short */
+}
+
+/* Body & HTML ensure full height */
+html, body {
+  height: 100%; /* Ensure the full height is available for layout */
+  margin: 0;
+  padding: 0;
+}
+
+/* Main content container to ensure footer positioning */
+
