@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import "../src/styles/PdfReader.css";
 
 const PdfReader = () => {
   const { id } = useParams();
@@ -57,7 +58,7 @@ const PdfReader = () => {
   };
 
   const handleBookDetails = () => {
-    alert(`Title: ${book.title}\nAuthor: ${book.author}\nDescription: ${book.description}`);
+    navigate(`/book/${book._id}/details`);
   };
 
   const handleBorrowBook = () => {

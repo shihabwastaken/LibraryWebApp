@@ -130,10 +130,12 @@
 
 
 .bookshelf-title {
-  color: #2f0952; /* Set the text color to white */
-  text-align: center; /* Center the text horizontally */
+  color: #3ebae6; /* Set the text color to white */
+  /* text-align: center; */
+   /* Center the text horizontally */
   margin-bottom: 30px; /* Add some space below the title */
   font-size: 3rem; /* Optional: Adjust font size */
-  font-weight: bold; /* Optional: Make the text bold */
+  font-weight: bold;
+  padding-left: 2vw; /* Optional: Make the text bold */
 
 }

@@ -22,10 +22,10 @@ const HomePage = () => {
 
     return (
         <>
-        <h1 class="home-welcome">Welcome to our Library</h1>
+        <h1 class="home-welcome">Ready to dive into a new adventure? Find your next favorite book today!</h1>
         <SearchBar />
         <div className="bookshelf">
-        <h1 className="bookshelf-title">Our Newest Arrivals!</h1>
+        <h1 className="bookshelf-title">Newest Arrivals!</h1>
             <BookDisplay books={books.slice(0,5)} />
         </div>
         </>

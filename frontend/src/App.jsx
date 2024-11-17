@@ -6,6 +6,7 @@ import AllBooks from "../screens/AllBooks.jsx";
 // import SearchBar from './components/SearchBar.jsx';
 import HomePage from "../screens/HomePage.jsx";
 import PdfReader from '../screens/PdfReader.jsx';
+import BookDetails from "../screens/BookDetails.jsx";
 import Book from "../../backend/models/Book.js";
 
 const App = () => {
@@ -18,8 +19,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/book/:id" element={<PdfReader />} />
-          <Route path="/book/:id/details" element={<PdfReader />} />
           <Route path="/allbooks" element={<AllBooks />} />
+          <Route path="/book/:id/details" element={<BookDetails />} />
         </Routes>
 
         <Footer />
