@@ -1,11 +1,11 @@
 import React from 'react';
-import { FaBook, FaSignInAlt, FaUser, FaFileAlt, FaInfoCircle } from 'react-icons/fa'; // Importing icons from react-icons
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
-// import '../Header.css'; // Custom CSS (optional)
+import { FaBook, FaSignInAlt, FaUser, FaFileAlt, FaInfoCircle, FaList } from 'react-icons/fa'; 
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import 'bootstrap/dist/css/bootstrap.min.css'; 
 
 const Header = () => {
     return (
-        <header className="header navbar navbar-expand-lg navbar-dark bg-dark" >
+        <header className="header navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-xl">
                 <a href="/" className="navbar-brand">🕮 LibTurd</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,19 +14,22 @@ const Header = () => {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item">
-                            <a href="/bookshelf" className="nav-link"><FaBook /> Bookshelf</a> {/* Book icon */}
+                            <Link to="/allbooks" className="nav-link"><FaBook /> Bookshelf</Link> {/* Use Link here */}
                         </li>
                         <li className="nav-item">
-                            <a href="/login" className="nav-link"><FaSignInAlt /> Login</a> {/* Login icon */}
+                            <Link to="/genres" className="nav-link"><FaList /> Genres</Link> {/* Use Link here */}
                         </li>
                         <li className="nav-item">
-                            <a href="/profile" className="nav-link"><FaUser /> User Profile</a> {/* User icon */}
+                            <Link to="/login" className="nav-link"><FaSignInAlt /> Login</Link> {/* Use Link here */}
                         </li>
                         <li className="nav-item">
-                            <a href="/contract" className="nav-link"><FaFileAlt /> Contract</a> {/* Contract icon */}
+                            <Link to="/profile" className="nav-link"><FaUser /> User Profile</Link> {/* Use Link here */}
                         </li>
                         <li className="nav-item">
-                            <a href="/about" className="nav-link"><FaInfoCircle /> About</a> {/* Info icon */}
+                            <Link to="/contract" className="nav-link"><FaFileAlt /> Contract</Link> {/* Use Link here */}
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/about" className="nav-link"><FaInfoCircle /> About</Link> {/* Use Link here */}
                         </li>
                     </ul>
                 </div>

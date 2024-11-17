@@ -63,6 +63,22 @@ app.get('/api/bookshelf/:id', async (req, res) => {
 });
 
 
+app.get('/api/bookshelf/:id/details', async (req, res) => {
+  try {
+    const bookId = req.params.id;
+    const book = await Book.findById(bookId);
+
+    if (!book) {
+      return res.status(404).send({ message: "Book not found" });
+    }
+    
+    res.json(book); // Send the book data as a response
+  } catch (error) {
+    console.error("Error fetching book:", error);
+    res.status(500).send({ message: "Server error", error: error.message });
+  }
+});
+
 
 
 // In your Express route handler
