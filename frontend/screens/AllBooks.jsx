@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import BookDisplay from '../components/BookDisplay.jsx';
+import BookDisplay from '../src/components/BookDisplay.jsx';
 
 const AllBooks = () => {
     const [books, setBooks] = useState([]); // State to hold books from the backend
