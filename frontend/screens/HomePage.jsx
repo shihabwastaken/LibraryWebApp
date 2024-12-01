@@ -9,7 +9,7 @@ const HomePage = () => {
     // Fetch books from backend when the component mounts
         const fetchBooks = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/bookshelf');
+            const res = await fetch('http://localhost:5000/');
             const data = await res.json();
             setBooks(data); // Set books to the state
         } catch (error) {
@@ -26,7 +26,7 @@ const HomePage = () => {
         <SearchBar />
         <div className="bookshelf">
         <h1 className="bookshelf-title">Newest Arrivals!</h1>
-            <BookDisplay books={books.slice(0,5)} />
+            <BookDisplay books={books} />
         </div>
         </>
     );

@@ -3,6 +3,7 @@
   padding: 15px 50px; /* Increased top and bottom padding */
   background-color: #f8f9fa; /* Light background */
   height: 100px; /* Fixed height to make it larger */
+  z-index: 1050;;
 }
 
 /* Logo styling */
@@ -39,7 +40,7 @@
 /* Hover effects for navbar links */
 .nav-link:hover {
   color: #007bff; /* Change color on hover */
-  transform: scale(1.1); /* Slight zoom on hover */
+  transform: scale(1.); /* Slight zoom on hover */
 }
 
 /* Responsive - navbar links at smaller screen sizes */
@@ -61,3 +62,39 @@
     font-size: 1.3rem; /* Slightly larger text on small screens */
   }
 }
+
+
+/* Background for the collapsed menu */
+@media (max-width: 992px) {
+  .navbar-collapse {
+    background-color: #343a40; /* Dark background for collapsed menu */
+    padding: 15px; /* Add padding for spacing */
+    border-radius: 5px; /* Optional: Rounded corners */
+  }
+
+  .navbar-collapse .nav-link {
+    color: #d2c3c3; /* Light color for links */
+  }
+
+  .navbar-collapse .nav-link:hover {
+    color: #007bff; /* Highlight color on hover */
+  }
+
+  .navbar-toggler {
+    background-color: transparent; /* Keep toggler button transparent */
+  }
+
+  .nav-item {
+    margin-bottom: 10px; /* Space between items in collapsed view */
+  }
+}
+
+.navbar {
+  position: sticky; /* Makes it stick to the top */
+  top: 0; /* Sticks to the very top of the viewport */
+  z-index: 1050; /* Ensure it's always on top */
+  background-color: #f8f9fa; /* Retain background color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for clarity */
+}
+
+
