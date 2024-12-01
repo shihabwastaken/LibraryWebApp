@@ -1,4 +1,5 @@
 import Book from './models/Book.js';
+import User from './models/User.js';
 import express from 'express';
 import connectDB from './config/db.js';
 import dotenv from 'dotenv';
@@ -10,6 +11,7 @@ const app = express();
 app.use(cors())
 dotenv.config();
 const port = process.env.PORT || 5000;
+// const port = 1516;
 connectDB();
 
 
@@ -27,6 +29,22 @@ app.get('/', async (req, res) => {
     res.status(500).json({ message: 'Error fetching homepage books' });
   }
 });
+
+// app.get('/api/search', async (req, res) => {
+//   try {
+//     const { query } = req.query;
+//     const books = await Book.find({
+//       $or: [
+//         { title: { $regex: query, $options: 'i' } },
+//         { author: { $regex: query, $options: 'i' } }
+//       ]
+//     }, 'title author coverImageLink');
+//     res.json(books);
+//   } catch (error) {
+//     console.error("Error searching books:", error);
+//     res.status(500).send({ message: "Server error", error: error.message });
+//   }
+// });
 
 
 app.get('/api/bookshelf', async (req, res) => {
@@ -73,6 +91,21 @@ app.get('/api/bookshelf/:id/details', async (req, res) => {
     res.status(500).send({ message: "Server error", error: error.message });
   }
 });
+
+
+// app.get('/api/userDashboard', async (req, res) => {
+//   try {
+//     // Get all users or just one user based on your needs
+//     const users = await User.find({}, { password: 0 }); // Exclude password field
+
+//     // Send the user details without password
+//     res.json(users);
+//   } catch (error) {
+//     console.error('Error fetching user details:', error);
+//     res.status(500).json({ message: 'Error fetching user details' });
+//   }
+// });
+
 
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
