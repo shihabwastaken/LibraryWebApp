@@ -22,7 +22,7 @@ const Footer = () => {
                 {/* Footer Bottom Section */}
                 <div className="row justify-content-center">
                     <div className="col-12 text-center mt-4">
-                        <p>&copy; {new Date().getFullYear()} LibTord. All rights reserved.</p>
+                        <p>&copy; {new Date().getFullYear()} LibGen. All rights reserved.</p>
                     </div>
                 </div>
             </div>

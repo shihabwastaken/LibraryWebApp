@@ -1,8 +1,8 @@
-Navbar container and layout
+/* Navbar container and layout */
 .navbar {
   padding: 15px 50px; /* Increased top and bottom padding */
   background-color: #f8f9fa; /* Light background */
-  height: 80px; /* Fixed height to make it larger */
+  height: 100px; /* Fixed height to make it larger */
 }
 
 /* Logo styling */

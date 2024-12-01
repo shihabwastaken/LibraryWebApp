@@ -2,16 +2,16 @@ import Book from './models/Book.js';
 import express from 'express';
 import connectDB from './config/db.js';
 import dotenv from 'dotenv';
-dotenv.config();
 // import bookRoutes from './routes/bookRoutes.js';
 import cors from 'cors';
 // import books from './books.js';
-
+const app = express();
+// app.use(cors());
+app.use(cors())
+dotenv.config();
 const port = process.env.PORT || 5000;
 connectDB();
 
-const app = express();
-app.use(cors());
 
 app.get('/', (req, res) => {
     res.send('API is running...');
