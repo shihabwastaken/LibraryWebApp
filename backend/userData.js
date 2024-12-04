@@ -54,3 +54,4 @@ async function insertUsers() {
 
 // Run the insertUsers function
 insertUsers();
+// To inject the data type from root: node ./backend/userData.js

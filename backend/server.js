@@ -6,8 +6,17 @@ import dotenv from 'dotenv';
 // import bookRoutes from './routes/bookRoutes.js';
 import cors from 'cors';
 // import books from './books.js';
+import cookieParser from 'cookie-parser';
+import userRoutes from './routes/userRoutes.js';
+import { notFound, errorHandler } from './middleware/errorMiddleware.js';
+
 const app = express();
 // app.use(cors());
+
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use('/api/users', userRoutes);
+
 app.use(cors())
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -106,6 +115,9 @@ app.get('/api/bookshelf/:id/details', async (req, res) => {
 //   }
 // });
 
+
+app.use(notFound);
+app.use(errorHandler);
 
 
 app.listen(port, () => console.log(`Server running on port ${port}`));
