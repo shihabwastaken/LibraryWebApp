@@ -1,0 +1,93 @@
+/* LoginPage.css */
+
+/* Center the form container */
+.login-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+  padding: 20px; /* Added padding to prevent content from touching screen edges */
+}
+
+/* Style the form itself */
+.login-form {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 450px; /* Fixed width to prevent stretching */
+  margin: 20px; /* Ensures space between the form and the edges */
+}
+
+/* Sign in title */
+.login-title {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 30px; /* Adds spacing between title and form */
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Form group styling */
+.form-group {
+  margin-bottom: 1.5rem; /* More space between the form elements */
+}
+
+/* Input field styles */
+.form-control {
+  padding: 15px; /* More padding inside the fields */
+  border-radius: 8px; /* Rounded corners for inputs */
+  border: 1px solid #ccc;
+  font-size: 1.1rem; /* Slightly larger text */
+  width: 100%;
+  margin-bottom: 1rem; /* More space below each input */
+}
+
+/* Focus effect for form controls */
+.form-control:focus {
+  border-color: #6e8efb;
+  box-shadow: 0 0 5px rgba(0, 113, 255, 0.5);
+}
+
+/* Submit button styling */
+.submit-btn {
+  padding: 15px; /* More padding for a larger button */
+  border-radius: 8px;
+  border: none;
+  background-color: #6e8efb;
+  color: white;
+  font-size: 1.1rem; /* Slightly larger text */
+  cursor: pointer;
+  width: 100%;
+  margin-top: 20px; /* Adds space between form elements and the button */
+}
+
+/* Hover effect for submit button */
+.submit-btn:hover {
+  background-color: #4a72d4;
+}
+
+/* Disabled button state */
+.submit-btn:disabled {
+  background-color: #b1c9f7;
+}
+
+/* New customer link styling */
+.new-customer {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 20px; /* Added space above the new customer text */
+}
+
+/* New customer link styles */
+.new-customer a {
+  color: #6e8efb;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.new-customer a:hover {
+  text-decoration: underline;
+}

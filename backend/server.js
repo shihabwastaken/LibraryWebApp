@@ -11,7 +11,15 @@ import userRoutes from './routes/userRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 const app = express();
-// app.use(cors());
+
+app.use(express.json());
+
+app.use(cors({
+  origin: 'http://localhost:3000', // Allow requests only from the frontend
+  methods: ['GET', 'POST'],
+  credentials: true, // Allow sending cookies if needed
+}));
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -115,6 +123,9 @@ app.get('/api/bookshelf/:id/details', async (req, res) => {
 //     res.status(500).json({ message: 'Error fetching user details' });
 //   }
 // });
+
+
+
 
 
 app.use(notFound);
