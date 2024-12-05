@@ -10,6 +10,7 @@ import './styles/SearchBar.css'
 import './styles/PdfReader.css'
 import './styles/HomePage.css'
 import './styles/BookDetails.css'
+import './styles/AllBooks.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
