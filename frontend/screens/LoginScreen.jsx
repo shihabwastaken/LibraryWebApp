@@ -81,6 +81,13 @@ const LoginScreen = () => {
           </Link>
         </Col>
       </Row>
+
+      {/* Add Forgot Password Link */}
+      <Row className='py-3'>
+        <Col>
+          <Link to='/forgot-password'>Forgot Password?</Link>
+        </Col>
+      </Row>
     </FormContainer>
   );
 };

@@ -8,6 +8,7 @@ import PdfReader from '../screens/PdfReader.jsx';
 import BookDetails from "../screens/BookDetails.jsx";
 import RegisterScreen from "../screens/RegisterScreen.jsx";
 import LoginScreen from "../screens/LoginScreen.jsx";
+import ForgotPasswordScreen from "../screens/ForgotPasswordScreen.jsx";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "./slices/authSlice.js";
@@ -41,6 +42,7 @@ const App = () => {
           <Route path="/book/:id/details" element={<BookDetails />} />
           <Route path="/login" element={<LoginScreen/>} />
           <Route path='/register' element={<RegisterScreen />} />
+          <Route path='/forgot-password' element={<ForgotPasswordScreen />} />
         </Routes>
 
         <Footer />
