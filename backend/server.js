@@ -125,7 +125,37 @@ app.get('/api/bookshelf/:id/details', async (req, res) => {
 // });
 
 
+app.get('/api/books/filter', async (req, res) => {
+  try {
+      const { author, genre } = req.query;
+      const filter = {};
 
+      if (author) {
+          filter.author = new RegExp(author, 'i'); // Case-insensitive match
+      }
+
+      if (genre) {
+          filter.genre = genre;
+      }
+
+      const books = await Book.find(filter);
+      res.status(200).json(books);
+  } catch (error) {
+      res.status(500).json({ message: 'Error filtering books', error });
+  }
+});
+
+
+app.get('/api/books/dropdown-options', async (req, res) => {
+  try {
+      const authors = await Book.distinct('author'); // Get unique authors
+      const genres = await Book.distinct('genre');   // Get unique genres
+
+      res.status(200).json({ authors, genres });
+  } catch (error) {
+      res.status(500).json({ message: 'Error fetching dropdown options', error });
+  }
+});
 
 
 app.use(notFound);

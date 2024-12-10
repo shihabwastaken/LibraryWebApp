@@ -71,11 +71,11 @@ const Header = ({ onBookshelfClick }) => { // Accept a callback prop for the boo
             </li>
             <li className="nav-item">
               <Link
-                to="/genres"
+                to="/filterBooks"
                 className="nav-link"
                 onClick={() => handleNavLinkClick('genres')}
               >
-                <FaList /> Genres
+                <FaList /> Filter Books
               </Link>
             </li>
             <li className="nav-item">
