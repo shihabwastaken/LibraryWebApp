@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import BookDisplay from '../src/components/BookDisplay';
-import '../src/styles/FilterBooks.css'; // Make sure to add this import for the CSS file
+import '../src/styles/FilterBooks.css';
+
 
 const FilterBooks = () => {
     const [authors, setAuthors] = useState([]);
@@ -15,9 +16,9 @@ const FilterBooks = () => {
     useEffect(() => {
         const fetchAllBooks = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/books'); // Adjust if needed
+                const response = await axios.get('http://localhost:5000/api/books');
                 setAllBooks(response.data);
-                setFilteredBooks(response.data); // Initially show all books
+                setFilteredBooks(response.data);
             } catch (error) {
                 console.error('Error fetching books:', error);
             }
@@ -88,9 +89,8 @@ const FilterBooks = () => {
                 <button className="apply-filter-btn" onClick={handleFilter}>Apply Filter</button>
             </div>
 
-            {/* Display filtered books or all books if no filter is applied */}
             <div className="bookshelf">
-                <h1 className="bookshelf-title">{filteredBooks.length > 0 ? "Filter result.." : "Shelf is empty :("}</h1>
+                <h1 className="bookshelf-title">{filteredBooks.length > 0 ? "Filter result.." : "Nothing was found.."}</h1>
                 <BookDisplay books={filteredBooks.length > 0 ? filteredBooks : allBooks} />
             </div>
         </div>

@@ -56,16 +56,6 @@
     background-color: #45a049;
 }
 
-/* .bookshelf {
-    margin-top: 40px;
-}
-
-.bookshelf-title {
-    font-size: 2em;
-    color: #333;
-    margin-bottom: 20px;
-} */
-
 /* Responsive Design */
 @media (max-width: 768px) {
     .filter-form {
