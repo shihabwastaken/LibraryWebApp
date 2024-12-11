@@ -12,8 +12,16 @@ const bookSchema = new Schema({
     totalCopies: { type: Number, required: true },
     categories: [{ type: String }],
     pdfLink: { type: String }, // Link to the PDF file for preview
-    coverImageLink: { type: String } // Link to the cover image of the book
-  }, { timestamps: true });
+    coverImageLink: { type: String }, // Link to the cover image of the book
+    borrowedBy: [{
+      userId: { type: Schema.Types.ObjectId, ref: 'User' },
+      borrowDate: { type: Date },
+      returnDate: { type: Date }, // If returned
+      isReturned: { type: Boolean, default: false }
+    }],
+    
+  },
+   { timestamps: true });
   
 const Book = mongoose.model('Book', bookSchema);
 
