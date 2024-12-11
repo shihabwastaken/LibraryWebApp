@@ -8,6 +8,7 @@ import cors from 'cors';
 // import books from './books.js';
 import cookieParser from 'cookie-parser';
 import userRoutes from './routes/userRoutes.js';
+import adminRoutes from './routes/adminRoutes.js'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 const app = express();
@@ -16,7 +17,7 @@ app.use(express.json());
 
 app.use(cors({
   origin: 'http://localhost:3000', // Allow requests only from the frontend
-  methods: ['GET', 'POST'],
+  methods: ['GET', 'POST', 'DELETE', 'PUT'],
   credentials: true, // Allow sending cookies if needed
 }));
 
@@ -24,6 +25,7 @@ app.use(cors({
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use('/api/users', userRoutes);
+app.use('/api/admin', adminRoutes)
 
 app.use(cors())
 dotenv.config();
