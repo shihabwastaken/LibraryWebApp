@@ -4,7 +4,7 @@ import { Button, Table, Container } from "react-bootstrap";
 import { toast, ToastContainer } from "react-toastify";
 import { FaEye, FaTrash, FaUser, FaUserShield, FaBan } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
-
+import "../../src/styles/UserList.css"; // Import your custom styles
 axios.defaults.baseURL = "http://localhost:5000/api";
 
 const UserList = () => {
