@@ -77,7 +77,11 @@ const AdminBookList = () => {
     setIsEditing(true);
     setEditBookId(book._id);
     setShowForm(true); // Show the form for editing
+  
+    // Scroll to the top
+    window.scrollTo({ top: 200, behavior: 'smooth' });
   };
+  
 
   // Update the book details
   const handleUpdateBook = async (e) => {
