@@ -118,13 +118,13 @@ const Header = ({ onBookshelfClick }) => { // Accept a callback prop for the boo
               {/* Admin Links */}
               {userInfo && userInfo.isAdmin && (
                 <NavDropdown title='Admin' id='adminmenu'>
-                  <NavDropdown.Item as={Link} to='/admin/booklist'>
-                    Books
+                  <NavDropdown.Item as={Link} to='/admin/bookList'>
+                    Book List
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to='/admin/borrowlist'>
+                  <NavDropdown.Item as={Link} to='/admin/borrowList'>
                     Borrows
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to='/admin/userlist'>
+                  <NavDropdown.Item as={Link} to='/admin/userList'>
                     Users
                   </NavDropdown.Item>
                 </NavDropdown>
