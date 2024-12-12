@@ -10,6 +10,7 @@ import RegisterScreen from "../screens/RegisterScreen.jsx";
 import LoginScreen from "../screens/LoginScreen.jsx";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen.jsx";
 import FilterBooks from "../screens/FilterBooks.jsx";
+import BookList from "../screens/admin/BookList.jsx"
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "./slices/authSlice.js";
@@ -45,6 +46,7 @@ const App = () => {
           <Route path='/register' element={<RegisterScreen />} />
           <Route path='/forgot-password' element={<ForgotPasswordScreen />} />
           <Route path='/filterBooks' element={<FilterBooks />} />
+          <Route path='/admin/bookList' element={<BookList />} />
         </Routes>
 
 
