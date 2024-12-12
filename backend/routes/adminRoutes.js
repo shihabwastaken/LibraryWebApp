@@ -1,3 +1,11 @@
+// import { protect, admin } from '../middleware/authMiddleware.js';
+import {
+  getAllUsers,
+  deleteUser,
+  updateUserRole,
+  banUser,
+} from '../controllers/adminController.js';
+
 import express from 'express';
 import Book from '../models/Book.js';
 
@@ -109,5 +117,25 @@ router.delete('/books/:id', async (req, res) => {
     }
   });
   
+  // import express from 'express';
+
+// const router = express.Router();
+
+// Get all users
+// router.route('/users').get(getAllUsers);
+
+// // Delete a user
+// router.route('/users/:id').delete(deleteUser);
+
+// // Update user role (e.g., make admin)
+// router.route('/users/:id/role').put(updateUserRole);
+
+// // Ban or unban a user
+// router.route('/users/:id/ban').put(banUser);
+
+// // export default router;
+
+
+
 
 export default router;

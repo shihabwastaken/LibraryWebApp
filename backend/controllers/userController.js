@@ -127,7 +127,6 @@ const getUsers = asyncHandler(async (req, res) => {
 // @access  Private/Admin
 const deleteUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
-
   if (user) {
     if (user.isAdmin) {
       res.status(400);
@@ -164,6 +163,7 @@ const updateUser = asyncHandler(async (req, res) => {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
     user.isAdmin = Boolean(req.body.isAdmin);
+    user.isBanned = Boolean(req.body.isBanned);
 
     const updatedUser = await user.save();
 
@@ -172,6 +172,7 @@ const updateUser = asyncHandler(async (req, res) => {
       name: updatedUser.name,
       email: updatedUser.email,
       isAdmin: updatedUser.isAdmin,
+      isBanned: updatedUser.isBanned,
     });
   } else {
     res.status(404);

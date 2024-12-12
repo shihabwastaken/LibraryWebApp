@@ -125,7 +125,7 @@ const Header = ({ onBookshelfClick }) => { // Accept a callback prop for the boo
                     Borrows
                   </NavDropdown.Item>
                   <NavDropdown.Item as={Link} to='/admin/userList'>
-                    Users
+                    User List
                   </NavDropdown.Item>
                 </NavDropdown>
               )}

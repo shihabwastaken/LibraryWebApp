@@ -95,7 +95,6 @@ app.get('/api/bookshelf/:id', async (req, res) => {
 });
 
 
-
 app.get('/api/bookshelf/:id/details', async (req, res) => {
   try {
     const bookId = req.params.id;
@@ -158,6 +157,23 @@ app.get('/api/books/dropdown-options', async (req, res) => {
       res.status(500).json({ message: 'Error fetching dropdown options', error });
   }
 });
+
+// app.delete('/users/:id', async (req, res) => {
+//   try {
+//     const userId = req.params.id;
+//     const user = await User.findByIdAndDelete(userId); // Ensure you're using the correct database query
+
+//     if (!user) {
+//       return res.status(404).json({ message: 'User not found' }); // Handle case where user doesn't exist
+//     }
+
+//     res.status(200).json({ message: 'User deleted successfully' }); // Respond with success message
+//   } catch (err) {
+//     console.error('Error deleting user:', err); // Log error for debugging
+//     res.status(500).json({ message: 'Failed to delete user', error: err.message }); // Return a detailed error message
+//   }
+// });
+
 
 
 app.use(notFound);

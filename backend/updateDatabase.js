@@ -14,16 +14,16 @@ mongoose.connect(connectionString, {
     console.log("MongoDB connected!");
 
     // Update the books collection by adding borrowedBy: []
-    const updatedBooks = await Book.updateMany(
-      {},
-      { $set: { borrowedBy: [] } }
-    );
-    console.log(`Books collection updated: ${updatedBooks.modifiedCount} books`);
+    // const updatedBooks = await Book.updateMany(
+    //   {},
+    //   { $set: { borrowedBy: [] } }
+    // );
+    // console.log(`Books collection updated: ${updatedBooks.modifiedCount} books`);
 
     // Update the users collection by adding isBanned: false
     const updatedUsers = await User.updateMany(
       {},
-      { $set: { isBanned: false } }
+      { $set: { isGodAdmin: false } }
     );
     console.log(`Users collection updated: ${updatedUsers.modifiedCount} users`);
 

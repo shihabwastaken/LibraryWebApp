@@ -11,6 +11,11 @@ const userSchema = new Schema({
     required: true,
     default: false,
   },
+  isGodAdmin: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
   isBanned: {
     type: Boolean,
     required: true,
