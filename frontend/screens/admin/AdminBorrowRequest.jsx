@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import '../../src/styles/AdminBorrowRequest.css';
 
 //->route/borrowreq ->server.js(uermodel)
 const AdminBorrowRequests = () => {
