@@ -15,6 +15,7 @@ import UserList from "../screens/admin/UserList.jsx";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "./slices/authSlice.js";
+import AdminBorrowRequests from "../screens/admin/AdminBorrowRequest.jsx";
 
 
 const App = () => {
@@ -49,6 +50,7 @@ const App = () => {
           <Route path='/filterBooks' element={<FilterBooks />} />
           <Route path='/admin/bookList' element={<BookList />} />
           <Route path='/admin/userList' element={<UserList />} />
+          <Route path='/admin/borrowRequest' element={<AdminBorrowRequests />} />
         </Routes>
 
 

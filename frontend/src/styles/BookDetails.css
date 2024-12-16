@@ -12,6 +12,12 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+.book-details-message {
+  text-align: center;
+  color: #28a745;
+  font-weight: bold;
+}
+
 .book-info-details {
   display: flex;
   justify-content: flex-start; /* Align items horizontally by default */

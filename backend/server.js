@@ -1,4 +1,5 @@
 import Book from './models/Book.js';
+import BorrowRequest from './models/BorrowRequest.js';
 import User from './models/User.js';
 import express from 'express';
 import connectDB from './config/db.js';
@@ -9,6 +10,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import userRoutes from './routes/userRoutes.js';
 import adminRoutes from './routes/adminRoutes.js'
+import borrowRequestRoutes from "./routes/borrowRequestRoutes.js";
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 const app = express();
@@ -25,7 +27,10 @@ app.use(cors({
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use('/api/users', userRoutes);
-app.use('/api/admin', adminRoutes)
+app.use('/api/admin', adminRoutes);
+
+app.use("/api/borrowRequests", borrowRequestRoutes);
+
 
 app.use(cors())
 dotenv.config();
@@ -174,6 +179,71 @@ app.get('/api/books/dropdown-options', async (req, res) => {
 //   }
 // });
 
+app.post("/api/borrow", async (req, res) => {
+  const { bookId, userId } = req.body;
+
+  try {
+    if (!bookId || !userId) {
+      return res.status(400).json({ message: "Missing bookId or userId" });
+    }
+    const borrowRecord = await BorrowRequest.findOne({ bookId, userId });
+    if (borrowRecord){
+      return res.status(403).json({ message: "User is banned and cannot borrow books." });
+    }
+    const user = await User.findById(userId);
+
+    // Check if the user exists
+    // if (!user) {
+    //   return res.status(404).json({ message: "User not found." });
+    // }
+
+    // Check if the user is banned
+    if (user.isBanned) {
+      return res.status(403).json({ message: "User is banned and cannot borrow books." });
+    }
+
+    // Create a new borrow request
+    const borrowRequest = new BorrowRequest({
+      bookId,
+      userId,
+      approved: false,
+      rejected: false,
+      requestDate: new Date(),
+    });
+
+    await borrowRequest.save(); // Save the request to the database
+
+    res.status(201).json({ message: "Borrow request created successfully", borrowRequest });
+  } catch (error) {
+    console.error("Error creating borrow request:", error);
+    res.status(500).json({ message: "Failed to create borrow request." });
+  }
+});
+
+
+app.get('/api/borrow/:bookId/status', async (req, res) => {
+  const { bookId } = req.params;
+  const { userId } = req.query;
+
+  const borrowRecord = await Borrow.findOne({ bookId, userId });
+  if (borrowRecord) {
+    res.json({ isBorrowed: true });
+  } else {
+    res.json({ isBorrowed: false });
+  }
+});
+
+app.delete('/api/borrow/:bookId', async (req, res) => {
+  const { bookId } = req.params;
+  const { userId } = req.body;
+
+  try {
+    await Borrow.deleteOne({ bookId, userId });
+    res.json({ message: "Borrow request canceled successfully." });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to cancel borrow request." });
+  }
+});
 
 
 app.use(notFound);

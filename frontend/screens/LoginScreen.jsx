@@ -8,6 +8,7 @@ import FormContainer from '../src/components/FormContainer.jsx';
 import { useLoginMutation } from '../src/slices/usersApiSlice.js';
 import { setCredentials } from '../src/slices/authSlice.js';
 import { toast } from 'react-toastify';
+import { setCurrentUserId } from '../globalUser.js';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -36,11 +37,16 @@ const LoginScreen = () => {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
       navigate(redirect);
+      const userId = res._id;
+      
+      setCurrentUserId(userId);
+      console.log("User logged in:", userId);
+      // console.log(res);
     } catch (err) {
       toast.error(err?.data?.message || err.error);
     }
   };
-
+  
   return (
     <FormContainer>
       <h1>Sign In</h1>

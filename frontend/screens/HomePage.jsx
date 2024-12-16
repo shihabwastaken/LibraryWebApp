@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import BookDisplay from '../src/components/BookDisplay.jsx';
 import SearchBar from '../src/components/SearchBar.jsx';
+import '../src/styles/HomePage.css';
 
 const HomePage = () => {
     const [books, setBooks] = useState([]); // State to hold books from backend
