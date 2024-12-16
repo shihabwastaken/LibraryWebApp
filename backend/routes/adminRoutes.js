@@ -1,11 +1,3 @@
-import { protect, admin } from '../middleware/authMiddleware.js';
-import {
-  getAllUsers,
-  deleteUser,
-  updateUserRole,
-  banUser,
-} from '../controllers/adminController.js';
-
 import express from 'express';
 import Book from '../models/Book.js';
 
