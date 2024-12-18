@@ -9,6 +9,7 @@ import BookDetails from "../screens/BookDetails.jsx";
 import RegisterScreen from "../screens/RegisterScreen.jsx";
 import LoginScreen from "../screens/LoginScreen.jsx";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen.jsx";
+import UserDashboard from "../screens/UserDashboard.jsx";
 import FilterBooks from "../screens/FilterBooks.jsx";
 import BookList from "../screens/admin/BookList.jsx"
 import UserList from "../screens/admin/UserList.jsx";
@@ -51,6 +52,7 @@ const App = () => {
           <Route path='/admin/bookList' element={<BookList />} />
           <Route path='/admin/userList' element={<UserList />} />
           <Route path='/admin/borrowRequest' element={<AdminBorrowRequests />} />
+          <Route path='/profile' element={<UserDashboard />} />
         </Routes>
 
 
