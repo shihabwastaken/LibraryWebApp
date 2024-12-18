@@ -11,6 +11,16 @@ const userSchema = new Schema({
     required: true,
     default: false,
   },
+  isGodAdmin: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  isBanned: {
+    type: Boolean,
+    required: true,
+    default: false, // Users are not banned by default
+  },  
   borrowedBooks: [{
     bookId: { type: Schema.Types.ObjectId, ref: 'Book' },
     dueDate: { type: Date }

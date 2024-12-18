@@ -9,9 +9,13 @@ import BookDetails from "../screens/BookDetails.jsx";
 import RegisterScreen from "../screens/RegisterScreen.jsx";
 import LoginScreen from "../screens/LoginScreen.jsx";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen.jsx";
+import FilterBooks from "../screens/FilterBooks.jsx";
+import BookList from "../screens/admin/BookList.jsx"
+import UserList from "../screens/admin/UserList.jsx";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "./slices/authSlice.js";
+import AdminBorrowRequests from "../screens/admin/AdminBorrowRequest.jsx";
 
 
 const App = () => {
@@ -43,7 +47,12 @@ const App = () => {
           <Route path="/login" element={<LoginScreen/>} />
           <Route path='/register' element={<RegisterScreen />} />
           <Route path='/forgot-password' element={<ForgotPasswordScreen />} />
+          <Route path='/filterBooks' element={<FilterBooks />} />
+          <Route path='/admin/bookList' element={<BookList />} />
+          <Route path='/admin/userList' element={<UserList />} />
+          <Route path='/admin/borrowRequest' element={<AdminBorrowRequests />} />
         </Routes>
+
 
         <Footer />
       </div>

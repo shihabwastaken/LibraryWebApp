@@ -9,6 +9,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
 import Loader from './Loader';
+import { clearCurrentUserId } from '../../globalUser';
 
 const Header = ({ onBookshelfClick }) => { // Accept a callback prop for the bookshelf link
   const handleNavLinkClick = (linkName) => {
@@ -38,6 +39,8 @@ const Header = ({ onBookshelfClick }) => { // Accept a callback prop for the boo
       // NOTE: here we need to reset cart state for when a user logs out so the next
       // user doesn't inherit the previous users cart and shipping
       navigate('/');
+      clearCurrentUserId();
+      console.log("User logged out.");
     } catch (err) {
       console.error(err);
     }
@@ -71,11 +74,11 @@ const Header = ({ onBookshelfClick }) => { // Accept a callback prop for the boo
             </li>
             <li className="nav-item">
               <Link
-                to="/genres"
+                to="/filterBooks"
                 className="nav-link"
                 onClick={() => handleNavLinkClick('genres')}
               >
-                <FaList /> Genres
+                <FaList /> Filter Books
               </Link>
             </li>
             <li className="nav-item">
@@ -118,14 +121,14 @@ const Header = ({ onBookshelfClick }) => { // Accept a callback prop for the boo
               {/* Admin Links */}
               {userInfo && userInfo.isAdmin && (
                 <NavDropdown title='Admin' id='adminmenu'>
-                  <NavDropdown.Item as={Link} to='/admin/booklist'>
-                    Books
+                  <NavDropdown.Item as={Link} to='/admin/bookList'>
+                    Book List
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to='/admin/borrowlist'>
-                    Borrows
+                  <NavDropdown.Item as={Link} to='/admin/borrowRequest'>
+                    Borrow Request
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to='/admin/userlist'>
-                    Users
+                  <NavDropdown.Item as={Link} to='/admin/userList'>
+                    User List
                   </NavDropdown.Item>
                 </NavDropdown>
               )}
