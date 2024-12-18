@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { getCurrentUserId } from '../globalUser'; // Import the method to fetch user ID
 import '../src/styles/UserDashboard.css';
+import { getCurrentUserId } from '../globalUser'; // Import the method to fetch user ID
 
 const UserDashboard = () => {
   const [user, setUser] = useState({});
