@@ -245,6 +245,73 @@ app.delete('/api/borrow/:bookId', async (req, res) => {
   }
 });
 
+//Dashboard routes
+// Get user profile by ID
+app.get('/api/users/profile/:id', async (req, res) => {
+  const { id } = req.params; // Extract ID from route parameters
+  try {
+    const user = await User.findById(id); // Fetch user by ID
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    // Return relevant user information
+    res.json({
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      isBanned: user.isBanned,
+      borrowedBooks: user.borrowedBooks,
+      wishlist: user.wishlist,
+      createdAt: user.createdAt,
+    });
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+// Update user profile
+// Update user profile by ID
+app.put('/api/users/profile/:id', async (req, res) => {
+  const { name, email, password } = req.body;
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Update fields
+    if (name) user.name = name;
+    if (email) user.email = email;
+
+    // Hash password if it's being updated
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(password, salt);
+    }
+
+    const updatedUser = await user.save();
+    res.status(200).json({
+      id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+      isGodAdmin: updatedUser.isGodAdmin,
+      isBanned: updatedUser.isBanned,
+      createdAt: updatedUser.createdAt,
+    });
+  } catch (error) {
+    console.error('Error updating profile:', error);
+    res.status(500).json({ message: 'Failed to update profile' });
+  }
+});
+
+
+//Dashboard routes end
+
+
 
 app.use(notFound);
 app.use(errorHandler);
