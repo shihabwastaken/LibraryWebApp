@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../src/styles/BookList.css';
-//->server.js 
+//Book list. front: screen/admin/BookList back: adminRoutes
 
 const AdminBookList = () => {
   const [books, setBooks] = useState([]);

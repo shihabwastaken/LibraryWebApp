@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import '../../src/styles/AdminBorrowRequest.css';
 
-//->route/borrowreq ->server.js(uermodel)
+//-> screen/BookDetails ->/admin/`AdminBorrowRequest`
+//back: user->server.js, admin->routes/borrowRequestRoutes
 const AdminBorrowRequests = () => {
   const [requests, setRequests] = useState([]);
   const [message, setMessage] = useState("");

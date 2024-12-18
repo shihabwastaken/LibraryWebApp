@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import BookDisplay from '../src/components/BookDisplay';
 import '../src/styles/FilterBooks.css';
-
+// Filter books. front: screen/FilterBooks back: server.js
 
 const FilterBooks = () => {
     const [authors, setAuthors] = useState([]);

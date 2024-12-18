@@ -6,7 +6,7 @@ import { FaEye, FaTrash, FaUser, FaUserShield, FaBan } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
 import "../../src/styles/UserList.css"; // Import your custom styles
 axios.defaults.baseURL = "http://localhost:5000/api";
-//admin.route.js ->
+//. User list. front: screen/admin/UserList. back: user Routes -> user controller
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(null);
