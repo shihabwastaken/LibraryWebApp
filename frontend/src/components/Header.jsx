@@ -141,6 +141,9 @@ const Header = ({ onBookshelfClick }) => {
                 <NavDropdown.Item as={Link} to="/admin/borrowRequest">
                   Borrow Request
                 </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/admin/borrowList">
+                  Borrow List
+                </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/admin/userList">
                   User List
                 </NavDropdown.Item>
