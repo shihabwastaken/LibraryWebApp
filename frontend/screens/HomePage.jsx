@@ -10,7 +10,7 @@ const HomePage = () => {
     // Fetch books from backend when the component mounts
         const fetchBooks = async () => {
         try {
-            const res = await fetch('http://localhost:5000/');
+            const res = await fetch('/api');
             const data = await res.json();
             setBooks(data); // Set books to the state
         } catch (error) {

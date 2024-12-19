@@ -25,7 +25,7 @@ const UserDashboard = () => {
     const fetchProfile = async () => {
       try {
         const userId = getCurrentUserId(); // Get the current user's ID
-        const { data } = await axios.get(`http://localhost:5000/api/users/profile/${userId}`);
+        const { data } = await axios.get(`/api/users/profile/${userId}`);
         setUser(data);
         setFormData({ name: data.name, email: data.email });
         setLoading(false);
@@ -42,7 +42,7 @@ const UserDashboard = () => {
     e.preventDefault();
     try {
       const userId = getCurrentUserId();
-      const { data } = await axios.put(`http://localhost:5000/api/users/profile/${userId}`, formData);
+      const { data } = await axios.put(`/api/users/profile/${userId}`, formData);
       setUser(data);
       setShowEditForm(false);
       alert('Profile updated successfully');
@@ -60,7 +60,7 @@ const UserDashboard = () => {
     }
     try {
       const userId = getCurrentUserId();
-      await axios.put(`http://localhost:5000/api/users/change-password/${userId}`, passwordData);
+      await axios.put(`/api/users/change-password/${userId}`, passwordData);
       alert('Password changed successfully');
       setShowChangePasswordForm(false);
       setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
@@ -185,7 +185,7 @@ const UserDashboard = () => {
       <div className="quick-navigation">
         <h2>Quick Links</h2>
         <button onClick={() => window.location.href = '/allbooks'}>Explore Books</button>
-        <button onClick={() => window.location.href = '/borrowList'}>Borrowing History</button>
+        <button onClick={() => window.location.href = '/history'}>Borrowing History</button>
         <button onClick={() => window.location.href = '/wishlist'}>Wishlist</button>
         {user.isAdmin && (
           <>

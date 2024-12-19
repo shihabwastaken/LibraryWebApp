@@ -14,7 +14,7 @@ const BookDetails = () => {
   useEffect(() => {
     const fetchBookDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/bookshelf/${id}/details`);
+        const response = await axios.get(`/api/bookshelf/${id}/details`);
         setBook(response.data); // Set book details to state
         setError(null); // Clear any previous error
       } catch (err) {
@@ -31,7 +31,7 @@ const BookDetails = () => {
   // Handle Borrow Request
   const handleBorrowRequest = async () => {
     try {
-      const response = await axios.post(`http://localhost:5000/api/borrow`, {
+      const response = await axios.post(`/api/borrow`, {
         bookId: id, // ID of the book being borrowed
         userId: getCurrentUserId(), // Replace with the current logged-in user's ID
       });

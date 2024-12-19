@@ -11,7 +11,7 @@ const AdminBorrowRequests = () => {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/borrowRequests");
+        const response = await axios.get("/api/borrowRequests");
         setRequests(response.data);
       } catch (error) {
         console.error("Error fetching borrow requests:", error);
@@ -22,7 +22,7 @@ const AdminBorrowRequests = () => {
 
   const handleAction = async (requestId, action) => {
     try {
-      await axios.post(`http://localhost:5000/api/borrowRequests/${requestId}/${action}`);
+      await axios.post(`/api/borrowRequests/${requestId}/${action}`);
       setMessage(`Request ${action} successfully!`);
       setRequests(requests.filter((req) => req._id !== requestId));
     } catch (error) {

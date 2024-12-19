@@ -13,6 +13,7 @@ import UserDashboard from "../screens/UserDashboard.jsx";
 import FilterBooks from "../screens/FilterBooks.jsx";
 import BookList from "../screens/admin/BookList.jsx"
 import UserList from "../screens/admin/UserList.jsx";
+import BorrowingScreen from "../screens/BorrowingScreen.jsx";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "./slices/authSlice.js";
@@ -53,6 +54,7 @@ const App = () => {
           <Route path='/admin/userList' element={<UserList />} />
           <Route path='/admin/borrowRequest' element={<AdminBorrowRequests />} />
           <Route path='/profile' element={<UserDashboard />} />
+          <Route path="/history" element={<BorrowingScreen />} />
         </Routes>
 
 

@@ -10,7 +10,7 @@ const ForgotPasswordScreen = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('http://localhost:5000/api/users/forgot-password', { email });
+      const { data } = await axios.post('/api/users/forgot-password', { email });
       setMessage(data.message);
     } catch (err) {
       setError(err.response?.data?.message || 'Error sending email');

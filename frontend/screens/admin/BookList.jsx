@@ -25,7 +25,7 @@ const AdminBookList = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/admin/books');
+        const response = await axios.get('/api/admin/books');
         setBooks(response.data); // Assuming the response contains the list of books
       } catch (error) {
         console.error('Error fetching books:', error);
@@ -40,7 +40,7 @@ const AdminBookList = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/admin/books', newBook);
+      const response = await axios.post('/api/admin/books', newBook);
       setBooks([...books, response.data]); // Add the new book to the list
       setNewBook({
         title: '',
@@ -89,7 +89,7 @@ const AdminBookList = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/admin/books/${editBookId}`,
+        `/api/admin/books/${editBookId}`,
         newBook
       );
       setBooks(
@@ -120,7 +120,7 @@ const AdminBookList = () => {
   // Delete a book
   const handleDeleteBook = async (bookId) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/api/admin/books/${bookId}`);
+      const response = await axios.delete(`/api/admin/books/${bookId}`);
       if (response.status === 200) {
         setBooks(books.filter((book) => book._id !== bookId));
       }

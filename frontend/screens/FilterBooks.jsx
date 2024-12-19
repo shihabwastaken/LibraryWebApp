@@ -16,7 +16,7 @@ const FilterBooks = () => {
     useEffect(() => {
         const fetchAllBooks = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/books');
+                const response = await axios.get('/api/books');
                 setAllBooks(response.data);
                 setFilteredBooks(response.data);
             } catch (error) {
@@ -31,7 +31,7 @@ const FilterBooks = () => {
     useEffect(() => {
         const fetchDropdownOptions = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/books/dropdown-options');
+                const response = await axios.get('/api/books/dropdown-options');
                 setAuthors(response.data.authors);
                 setGenres(response.data.genres);
             } catch (error) {
@@ -45,7 +45,7 @@ const FilterBooks = () => {
     // Apply the filter based on selected author and genre
     const handleFilter = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/books/filter', {
+            const response = await axios.get('/api/books/filter', {
                 params: {
                     author: selectedAuthor,
                     genre: selectedGenre,

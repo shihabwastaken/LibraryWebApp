@@ -12,7 +12,7 @@ const PdfReader = () => {
   useEffect(() => {
     const fetchBook = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/bookshelf/${id}`);
+        const response = await axios.get(`/api/bookshelf/${id}`);
         setBook(response.data);
       } catch (error) {
         console.error("Error fetching book data:", error);

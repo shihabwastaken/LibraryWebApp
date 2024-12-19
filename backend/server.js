@@ -11,6 +11,7 @@ import cookieParser from 'cookie-parser';
 import userRoutes from './routes/userRoutes.js';
 import adminRoutes from './routes/adminRoutes.js'
 import borrowRequestRoutes from "./routes/borrowRequestRoutes.js";
+import borrowRoutes from "./routes/borrowRoutes.js";
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 const app = express();
@@ -32,7 +33,7 @@ app.use('/api/admin', adminRoutes);
 app.use("/api/borrowRequests", borrowRequestRoutes);
 
 
-app.use(cors())
+// app.use(cors());
 dotenv.config();
 const port = process.env.PORT || 5000;
 // const port = 1516;
@@ -40,7 +41,7 @@ connectDB();
 
 
 
-app.get('/', async (req, res) => {
+app.get('/api', async (req, res) => {
   try {
     const HomePageBooks = await Book.aggregate([
       { $sample: { size: 6 } }, // Select 6 random books
@@ -310,6 +311,57 @@ app.put('/api/users/profile/:id', async (req, res) => {
 
 
 //Dashboard routes end
+
+
+
+app.use("/api/borrow", borrowRoutes);
+
+// app.get('/api/borrowedBooks/overdue/:userId', async (req, res) => {
+//   const { userId } = req.params;
+  
+//   // Example logic to fetch overdue books
+//   const overdueBooks = await BorrowedBook.find({ userId, returnDate: { $lt: new Date() }, returned: false });
+  
+//   res.json(overdueBooks);
+// });
+
+
+//overdue book notification
+app.get('/api/users/overdueBooks/:id', async (req, res) => {
+  const userId = req.params.id; // Fetch the user ID from the route parameter
+  // console.log('User ID from params:', userId);
+
+  try {
+    // Find the user by ID and populate borrowed books
+    const user = await User.findById(userId).populate('borrowedBooks.bookId');
+    // console.log('Fetched User:', user); // Debugging log for fetched user
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Filter for overdue books
+    const currentDate = new Date();
+    const overdueBooks = user.borrowedBooks.filter((borrowedBook) => {
+      // console.log('Borrowed Book:', borrowedBook); // Log each borrowed book
+      if (!borrowedBook.dueDate) {
+        console.log('No due date for this book, skipping...');
+        return false; // Skip if dueDate is not set
+      }
+
+      const dueDate = new Date(borrowedBook.dueDate);
+      const isOverdue = dueDate < currentDate && !borrowedBook.isReturned;
+      // console.log(`Book ${borrowedBook.bookId}: Due Date: ${dueDate}, Is Overdue: ${isOverdue}`);
+      return isOverdue;
+    });
+
+    // console.log('Overdue Books:', overdueBooks); // Debugging log for overdue books
+    res.json({ overdueBooks });
+  } catch (error) {
+    console.error('Error in /api/users/overdueBooks/:id:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 
 
