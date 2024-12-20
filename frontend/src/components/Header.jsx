@@ -121,8 +121,11 @@ const Header = ({ onBookshelfClick }) => {
                     <FaUser /> Profile
                   </NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/history">
-                    <FaUser /> History
+                     Borrow History
                   </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/returnBook">
+                  Return Book
+                </NavDropdown.Item>
                   <NavDropdown.Item onClick={logoutHandler}>
                     <FaSignInAlt /> Logout
                   </NavDropdown.Item>
@@ -143,6 +146,9 @@ const Header = ({ onBookshelfClick }) => {
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/admin/borrowList">
                   Borrow List
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/admin/approveReturn">
+                  Approve Book Return
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/admin/userList">
                   User List

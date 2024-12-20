@@ -55,6 +55,8 @@ const App = () => {
           <Route path='/admin/borrowRequest' element={<AdminBorrowRequests />} />
           <Route path='/profile' element={<UserDashboard />} />
           <Route path="/history" element={<BorrowingScreen />} />
+          <Route path="/returnBook" element={<UserReturnBook />} />
+          <Route path="/admin/approveReturn" element={<AdminApproveReturns />} />
         </Routes>
 
 

@@ -1,5 +1,6 @@
 import Book from './models/Book.js';
 import BorrowRequest from './models/BorrowRequest.js';
+
 import User from './models/User.js';
 import express from 'express';
 import connectDB from './config/db.js';
@@ -362,6 +363,150 @@ app.get('/api/users/overdueBooks/:id', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+// Return book apis
+//get user borrowed books
+app.get('/api/borrowed-books/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findById(userId).populate('borrowedBooks.bookId', 'title author coverImageLink');
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+    res.json(user.borrowedBooks);
+  } catch (err) {
+    res.status(500).send('Failed to fetch borrowed books');
+  }
+});
+
+// Submit return request
+app.post("/api/return-request", async (req, res) => {
+  try {
+    const { userId, bookId } = req.body;
+    
+    if (!userId || !bookId) {
+      return res.status(400).json({ message: "User ID and Book ID are required." });
+    }
+
+    // Check if the user exists
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Check if the book is already in borrowedBooks for the user
+    const borrowedBook = user.borrowedBooks.find((book) => book.bookId.toString() === bookId.toString());
+    if (!borrowedBook) {
+      return res.status(404).json({ message: "This book is not borrowed by the user." });
+    }
+
+    // Create a new return request
+    const returnRequest = new ReturnRequest({
+      userId,
+      bookId,
+    });
+    await returnRequest.save();
+
+    res.status(200).json({ message: "Return request submitted successfully!" });
+  } catch (error) {
+    console.error("Error in return-request endpoint:", error);
+    res.status(500).json({ message: "Internal server error." });
+  }
+});
+
+
+
+
+//get all return request
+// Get all return requests
+app.get('/api/return-requests', async (req, res) => {
+  try {
+    const requests = await ReturnRequest.find()
+      .populate('userId', 'name')
+      .populate('bookId', 'title author coverImageLink');
+
+    res.status(200).json(requests);
+  } catch (error) {
+    console.error('Error fetching return requests:', error);
+    res.status(500).json({ message: "Failed to fetch return requests." });
+  }
+});
+
+
+
+// Approve return request
+app.put('/api/return-requests/:id/approve', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Step 1: Find the return request
+    const returnRequest = await ReturnRequest.findById(id);
+    if (!returnRequest) {
+      return res.status(404).json({ message: 'Return request not found' });
+    }
+
+    // Step 2: Find the user who made the request
+    const user = await User.findById(returnRequest.userId).populate('borrowedBooks.bookId');
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Step 3: Find the specific borrowed book in the user's borrowedBooks array
+    const borrowedBookIndex = user.borrowedBooks.findIndex(
+      (book) => book.bookId._id.toString() === returnRequest.bookId.toString()
+    );
+
+    if (borrowedBookIndex === -1) {
+      return res.status(404).json({ message: 'Book not found in user\'s borrowed books' });
+    }
+
+    // Step 4: Remove the book from the user's borrowedBooks
+    user.borrowedBooks.splice(borrowedBookIndex, 1);
+    await user.save();
+
+    // Step 5: Remove the return request from the ReturnRequest collection
+    await ReturnRequest.findByIdAndDelete(id);
+
+    // Step 6: Optional: Update the book's available copies count if you have this field
+    const book = await Book.findById(returnRequest.bookId);
+    if (book) {
+      book.availableCopies += 1; // Assuming a field 'availableCopies' exists in the Book model
+      await book.save();
+    }
+
+    res.status(200).json({ message: 'Return request approved and book removed from borrowed list' });
+  } catch (error) {
+    console.error('Error handling return approval:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+});
+
+
+
+
+
+
+// Reject return request
+app.delete('/api/return-requests/:id/reject', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const request = await ReturnRequest.findById(id);
+    if (!request) {
+      return res.status(404).json({ message: "Return request not found." });
+    }
+
+    // Use deleteOne() instead of remove()
+    await request.deleteOne();
+    res.status(200).json({ message: "Return request rejected." });
+  } catch (error) {
+    console.error('Error rejecting return request:', error);
+    res.status(500).json({ message: "Failed to reject return request." });
+  }
+});
+
+
+
 
 
 
