@@ -19,6 +19,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "./slices/authSlice.js";
 import AdminBorrowRequests from "../screens/admin/AdminBorrowRequest.jsx";
 import UserReturnBook from "../screens/UserReturnBook.jsx";
+import AdminApproveReturns from "../screens/admin/AdminApproveReturns.jsx";
 
 
 const App = () => {
@@ -57,6 +58,7 @@ const App = () => {
           <Route path='/profile' element={<UserDashboard />} />
           <Route path="/history" element={<BorrowingScreen />} />
           <Route path="/returnBook" element={<UserReturnBook />} />
+          <Route path="/admin/approveReturn" element={<AdminApproveReturns />} />
         </Routes>
 
 
