@@ -26,20 +26,20 @@ app.use(cors({
 }));
 
 
+dotenv.config();
+const port = process.env.PORT || 5000;
+// const port = 1516;
+connectDB();
+
+
+// app.use(cors());
+
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use('/api/users', userRoutes);
 app.use('/api/admin', adminRoutes);
 
 app.use("/api/borrowRequests", borrowRequestRoutes);
-
-
-// app.use(cors());
-dotenv.config();
-const port = process.env.PORT || 5000;
-// const port = 1516;
-connectDB();
-
 
 
 app.get('/api', async (req, res) => {
@@ -264,6 +264,7 @@ app.get('/api/users/profile/:id', async (req, res) => {
       isBanned: user.isBanned,
       borrowedBooks: user.borrowedBooks,
       wishlist: user.wishlist,
+      finishedBooks: user.finishedBooks,
       createdAt: user.createdAt,
     });
   } catch (error) {
@@ -289,10 +290,10 @@ app.put('/api/users/profile/:id', async (req, res) => {
     if (email) user.email = email;
 
     // Hash password if it's being updated
-    if (password) {
-      const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(password, salt);
-    }
+    // if (password) {
+    //   const salt = await bcrypt.genSalt(10);
+    //   user.password = await bcrypt.hash(password, salt);
+    // }
 
     const updatedUser = await user.save();
     res.status(200).json({
@@ -310,6 +311,43 @@ app.put('/api/users/profile/:id', async (req, res) => {
   }
 });
 
+//change password
+app.put('/api/users/change-password/:userId', async (req, res) => {
+  const { userId } = req.params;
+  const { currentPassword, newPassword, confirmPassword } = req.body;
+
+  try {
+    // Validate input
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    if (newPassword !== confirmPassword) {
+      return res.status(400).json({ message: 'New passwords do not match' });
+    }
+
+    // Find user by ID
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Verify current password
+    const isMatch = await user.matchPassword(currentPassword);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Current password is incorrect' });
+    }
+
+    // Update password
+    user.password = newPassword; // The 'pre-save' hook will handle hashing
+    await user.save();
+
+    res.status(200).json({ message: 'Password changed successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 //Dashboard routes end
 
@@ -482,10 +520,6 @@ app.put('/api/return-requests/:id/approve', async (req, res) => {
 });
 
 
-
-
-
-
 // Reject return request
 app.delete('/api/return-requests/:id/reject', async (req, res) => {
   const { id } = req.params;
@@ -506,6 +540,152 @@ app.delete('/api/return-requests/:id/reject', async (req, res) => {
 });
 
 
+// Get all borrowed books with user and book details
+app.get('/api/borrowedBooks/all', async (req, res) => {
+  try {
+    const users = await User.find({ 'borrowedBooks.0': { $exists: true } })
+      .populate('borrowedBooks.bookId', 'title') // Populate book title
+      .select('name email borrowedBooks'); // Select necessary fields
+
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
+//wishlist and finished reading routes
+app.post("/api/wishlist", async (req, res) => {
+  const { bookId, userId } = req.body;
+  try {
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    if (user.wishlist.includes(bookId)) {
+      return res.status(400).json({ message: "Book already in wishlist" });
+    }
+
+    user.wishlist.push(bookId);
+    await user.save();
+
+    res.status(200).json({ message: "Book added to wishlist" });
+  } catch (error) {
+    console.error("Error adding to wishlist:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
+// Mark a book as finished reading
+// Mark a book as finished reading
+app.post('/api/finished-reading', async (req, res) => {
+  const { bookId, userId } = req.body;
+
+  if (!bookId || !userId) {
+    return res.status(400).json({ error: 'Missing bookId or userId' });
+  }
+
+  try {
+    const user = await User.findById(userId);
+    const book = await Book.findById(bookId);
+
+    if (!user || !book) {
+      return res.status(404).json({ error: 'User or book not found' });
+    }
+
+    // Create a finished book object
+    const finishedBook = {
+      bookId: book._id,
+      finishedAt: new Date(),
+    };
+
+    // Check if the book already exists in the finishedBooks array
+    const isBookAlreadyFinished = user.finishedBooks.some((item) => item.bookId.toString() === bookId);
+    if (isBookAlreadyFinished) {
+      return res.status(400).json({ error: 'Book already in finished reading list' });
+    }
+
+    // Add the book to the user's finishedBooks array
+    user.finishedBooks.push(finishedBook);
+
+    // Remove the book from the user's wishlist
+    user.wishlist = user.wishlist.filter((item) => item.toString() !== bookId);
+
+    await user.save();
+
+    // Respond with the updated finishedBooks array
+    res.status(201).json(user.finishedBooks);
+  } catch (error) {
+    console.error('Error saving finished book:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+
+
+
+//fetch user wishlist and finish reading book
+app.get("/api/users/:userId/books", async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const user = await User.findById(userId)
+      .populate("wishlist")
+      .populate("finishedBooks.bookId"); // Populate bookId inside finishedBooks
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.status(200).json({
+      wishlist: user.wishlist,
+      finishedBooks: user.finishedBooks,
+    });
+  } catch (error) {
+    console.error("Error fetching user books:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// remove from wishlist
+app.post("/api/wishlist/remove", async (req, res) => {
+  const { bookId, userId } = req.body;
+  try {
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    // Remove the bookId from wishlist
+    const updatedWishlist = user.wishlist.filter((id) => id.toString() !== bookId);
+    
+    // Update the wishlist field in the database
+    user.wishlist = updatedWishlist;
+    await user.save();
+
+    res.status(200).json({ message: "Book removed from wishlist" });
+  } catch (error) {
+    console.error("Error removing from wishlist:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// remove from finished reading
+app.post("/api/finished-reading/remove", async (req, res) => {
+  const { bookId, userId } = req.body;
+  try {
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    // Filter out the bookId from finishedBooks
+    const updatedFinishedBooks = user.finishedBooks.filter((book) => book.bookId.toString() !== bookId);
+
+    // Update the finishedBooks field in the database
+    user.finishedBooks = updatedFinishedBooks;
+    await user.save();
+
+    res.status(200).json({ message: "Book removed from finished reading" });
+  } catch (error) {
+    console.error("Error removing from finished reading:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 
 
