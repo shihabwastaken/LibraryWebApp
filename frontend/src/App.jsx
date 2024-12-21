@@ -9,13 +9,20 @@ import BookDetails from "../screens/BookDetails.jsx";
 import RegisterScreen from "../screens/RegisterScreen.jsx";
 import LoginScreen from "../screens/LoginScreen.jsx";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen.jsx";
+import UserDashboard from "../screens/UserDashboard.jsx";
 import FilterBooks from "../screens/FilterBooks.jsx";
 import BookList from "../screens/admin/BookList.jsx"
 import UserList from "../screens/admin/UserList.jsx";
+import BorrowingScreen from "../screens/BorrowingScreen.jsx";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "./slices/authSlice.js";
 import AdminBorrowRequests from "../screens/admin/AdminBorrowRequest.jsx";
+import UserReturnBook from "../screens/UserReturnBook.jsx";
+import AdminApproveReturns from "../screens/admin/AdminApproveReturns.jsx";
+import UserWishlistAndFinishRead from "../screens/UserWishlistAndFinishRead.jsx";
+import AboutPage from "../screens/About.jsx";
+import BorrowList from "../screens/admin/BorrowList.jsx";
 
 
 const App = () => {
@@ -51,6 +58,13 @@ const App = () => {
           <Route path='/admin/bookList' element={<BookList />} />
           <Route path='/admin/userList' element={<UserList />} />
           <Route path='/admin/borrowRequest' element={<AdminBorrowRequests />} />
+          <Route path='/profile' element={<UserDashboard />} />
+          <Route path="/history" element={<BorrowingScreen />} />
+          <Route path="/returnBook" element={<UserReturnBook />} />
+          <Route path="/admin/approveReturn" element={<AdminApproveReturns />} />
+          <Route path="/wishlist-finishRead" element={<UserWishlistAndFinishRead />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/admin/borrowList" element={<BorrowList />} />
         </Routes>
 
 

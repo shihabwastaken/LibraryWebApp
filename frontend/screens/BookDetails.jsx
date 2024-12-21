@@ -14,7 +14,7 @@ const BookDetails = () => {
   useEffect(() => {
     const fetchBookDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/bookshelf/${id}/details`);
+        const response = await axios.get(`/api/bookshelf/${id}/details`);
         setBook(response.data); // Set book details to state
         setError(null); // Clear any previous error
       } catch (err) {
@@ -31,7 +31,7 @@ const BookDetails = () => {
   // Handle Borrow Request
   const handleBorrowRequest = async () => {
     try {
-      const response = await axios.post(`http://localhost:5000/api/borrow`, {
+      const response = await axios.post(`/api/borrow`, {
         bookId: id, // ID of the book being borrowed
         userId: getCurrentUserId(), // Replace with the current logged-in user's ID
       });
@@ -41,6 +41,21 @@ const BookDetails = () => {
       setMessage("Failed to send borrow request. Please try again.");
     }
   };
+
+  // Handle Add to Wishlist
+const handleAddToWishlist = async () => {
+  try {
+    const response = await axios.post("/api/wishlist", {
+      bookId: id,
+      userId: getCurrentUserId(), // Fetch current user ID
+    });
+    setMessage(response.data.message || "Book added to wishlist!");
+  } catch (err) {
+    console.error("Error adding book to wishlist:", err);
+    setMessage("Failed to add book to wishlist. Please try again.");
+  }
+};
+
 
   // Loading state
   if (loading) {
@@ -92,7 +107,10 @@ const BookDetails = () => {
         <button className="button" onClick={handleBorrowRequest}>
           Borrow this book
         </button>
-        <button className="button">Add to Wishlist</button>
+        <button className="button" onClick={handleAddToWishlist}>
+  Add to Wishlist
+</button>
+
       </div>
 
       {/* Message Display */}

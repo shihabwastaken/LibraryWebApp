@@ -1,4 +1,6 @@
 import express from 'express';
+import User from '../models/User.js'; // Adjust the path to your User model
+
 import {
   authUser,
   registerUser,
@@ -25,5 +27,13 @@ router
   .delete(deleteUser) // No middleware
   .get(getUserById) // No middleware
   .put(updateUser); // No middleware
+
+//change user password
+// import express from 'express';
+// import bcrypt from 'bcryptjs';
+
+
+
+
 
 export default router;

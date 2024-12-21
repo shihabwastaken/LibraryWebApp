@@ -13,7 +13,7 @@ const AllBooks = () => {
     // Fetch books from the backend
     const fetchBooks = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/bookshelf'); // Replace with your API endpoint
+        const res = await fetch('/api/bookshelf'); // Replace with your API endpoint
         if (!res.ok) {
           throw new Error('Failed to fetch books');
         }

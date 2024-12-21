@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "../src/styles/PdfReader.css";
+import { getCurrentUserId } from "../globalUser";
 
 const PdfReader = () => {
   const { id } = useParams();
@@ -12,7 +13,7 @@ const PdfReader = () => {
   useEffect(() => {
     const fetchBook = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/bookshelf/${id}`);
+        const response = await axios.get(`/api/bookshelf/${id}`);
         setBook(response.data);
       } catch (error) {
         console.error("Error fetching book data:", error);
@@ -61,9 +62,20 @@ const PdfReader = () => {
     navigate(`/book/${book._id}/details`);
   };
 
-  const handleBorrowBook = () => {
-    alert("Borrow book functionality coming soon!");
+  const handleFinishedReading = async () => {
+    try {
+      // console.log(id,getCurrentUserId());
+      const response = await axios.post("/api/finished-reading", {
+        bookId: id,
+        userId: getCurrentUserId(), // Fetch current user ID
+      });
+      alert(response.data.message || "Book marked as finished!");
+    } catch (err) {
+      console.error("Error marking book as finished:", err);
+      alert("Failed to mark book as finished. Please try again.");
+    }
   };
+  
 
   if (!book) {
     return <div>Loading...</div>;
@@ -96,8 +108,8 @@ const PdfReader = () => {
         <button onClick={handleBookDetails} className="button">
           Book Details
         </button>
-        <button onClick={handleBorrowBook} className="button">
-          Borrow Book
+        <button onClick={handleFinishedReading} className="button">
+          Mark Finished Reading
         </button>
       </div>
     </div>

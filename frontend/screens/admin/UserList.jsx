@@ -5,15 +5,15 @@ import { toast, ToastContainer } from "react-toastify";
 import { FaEye, FaTrash, FaUser, FaUserShield, FaBan } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
 import "../../src/styles/UserList.css"; // Import your custom styles
-axios.defaults.baseURL = "http://localhost:5000/api";
-//admin.route.js ->
+//. User list. front: screen/admin/UserList. back: user Routes -> user controller
+
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(null);
 
   const fetchUsers = async () => {
     try {
-      const { data } = await axios.get("/users");
+      const { data } = await axios.get("/api/users");
       setUsers(data);
     } catch (err) {
       toast.error("Failed to load users");
@@ -30,7 +30,7 @@ const UserList = () => {
 
   const deleteUser = async (id, name) => {
     try {
-      await axios.delete(`/users/${id}`);
+      await axios.delete(`/api/users/${id}`);
       showToast("deleted", name);
       fetchUsers();
     } catch (err) {
@@ -40,7 +40,7 @@ const UserList = () => {
 
   const updateUser = async (id, updates, name, actionDescription) => {
     try {
-      await axios.put(`/users/${id}`, updates);
+      await axios.put(`/api/users/${id}`, updates);
       showToast(actionDescription, name);
       fetchUsers();
     } catch (err) {

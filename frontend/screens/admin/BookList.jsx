@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../src/styles/BookList.css';
-//->server.js 
+//Book list. front: screen/admin/BookList back: adminRoutes
 
 const AdminBookList = () => {
   const [books, setBooks] = useState([]);
@@ -25,7 +25,7 @@ const AdminBookList = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/admin/books');
+        const response = await axios.get('/api/admin/books');
         setBooks(response.data); // Assuming the response contains the list of books
       } catch (error) {
         console.error('Error fetching books:', error);
@@ -40,7 +40,7 @@ const AdminBookList = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/api/admin/books', newBook);
+      const response = await axios.post('/api/admin/books', newBook);
       setBooks([...books, response.data]); // Add the new book to the list
       setNewBook({
         title: '',
@@ -89,7 +89,7 @@ const AdminBookList = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:5000/api/admin/books/${editBookId}`,
+        `/api/admin/books/${editBookId}`,
         newBook
       );
       setBooks(
@@ -120,7 +120,7 @@ const AdminBookList = () => {
   // Delete a book
   const handleDeleteBook = async (bookId) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/api/admin/books/${bookId}`);
+      const response = await axios.delete(`/api/admin/books/${bookId}`);
       if (response.status === 200) {
         setBooks(books.filter((book) => book._id !== bookId));
       }
@@ -236,10 +236,10 @@ const AdminBookList = () => {
                 <td>{book.publishedYear}</td>
                 <td>{book.availableCopies}</td>
                 <td>
-                  <button className="edit-button" onClick={() => handleEditBook(book)}>
+                  <button className="edit-button-bookList" onClick={() => handleEditBook(book)}>
                     Edit
                   </button>
-                  <button className="delete-button" onClick={() => handleDeleteBook(book._id)}>
+                  <button className="delete-button-bookList" onClick={() => handleDeleteBook(book._id)}>
                     Delete
                   </button>
                 </td>

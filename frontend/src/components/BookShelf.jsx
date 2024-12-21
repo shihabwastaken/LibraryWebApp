@@ -8,7 +8,7 @@ const Bookshelf = () => {
     // Fetch books from backend when the component mounts
         const fetchBooks = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/bookshelf');
+            const res = await fetch('/api/bookshelf');
             const data = await res.json();
             setBooks(data); // Set books to the state
         } catch (error) {
