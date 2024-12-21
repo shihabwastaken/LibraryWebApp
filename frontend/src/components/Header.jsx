@@ -126,6 +126,9 @@ const Header = ({ onBookshelfClick }) => {
                   <NavDropdown.Item as={Link} to="/returnBook">
                   Return Book
                 </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/wishlist-finishRead">
+                  Your Books
+                </NavDropdown.Item>
                   <NavDropdown.Item onClick={logoutHandler}>
                     <FaSignInAlt /> Logout
                   </NavDropdown.Item>

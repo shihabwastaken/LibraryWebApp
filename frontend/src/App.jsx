@@ -20,6 +20,9 @@ import { logout } from "./slices/authSlice.js";
 import AdminBorrowRequests from "../screens/admin/AdminBorrowRequest.jsx";
 import UserReturnBook from "../screens/UserReturnBook.jsx";
 import AdminApproveReturns from "../screens/admin/AdminApproveReturns.jsx";
+import UserWishlistAndFinishRead from "../screens/UserWishlistAndFinishRead.jsx";
+import AboutPage from "../screens/About.jsx";
+import BorrowList from "../screens/admin/BorrowList.jsx";
 
 
 const App = () => {
@@ -59,6 +62,9 @@ const App = () => {
           <Route path="/history" element={<BorrowingScreen />} />
           <Route path="/returnBook" element={<UserReturnBook />} />
           <Route path="/admin/approveReturn" element={<AdminApproveReturns />} />
+          <Route path="/wishlist-finishRead" element={<UserWishlistAndFinishRead />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/admin/borrowList" element={<BorrowList />} />
         </Routes>
 
 

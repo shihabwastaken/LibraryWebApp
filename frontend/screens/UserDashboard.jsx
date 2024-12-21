@@ -106,6 +106,7 @@ const UserDashboard = () => {
         <h2>Activity Overview</h2>
         <p><strong>Borrowed Books:</strong> {user.borrowedBooks?.length || 0}</p>
         <p><strong>Wishlist Items:</strong> {user.wishlist?.length || 0}</p>
+        <p><strong>Finished Reading:</strong> {user.finishedBooks?.length || 0}</p>
       </div>
 
       {/* Edit Profile and Change Password Buttons */}
@@ -191,7 +192,6 @@ const UserDashboard = () => {
           <>
             <button onClick={() => window.location.href = '/admin/bookList'}>Manage Books</button>
             <button onClick={() => window.location.href = '/admin/userList'}>User Management</button>
-            {/* <button onClick={() => window.location.href = '/admin/reports'}>Reports</button> */}
           </>
         )}
       </div>

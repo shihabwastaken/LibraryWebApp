@@ -25,8 +25,12 @@ const userSchema = new Schema({
     bookId: { type: Schema.Types.ObjectId, ref: 'Book' },
     dueDate: { type: Date }
   }],
-  wishlist: [{ type: Schema.Types.ObjectId, ref: 'Book' }]
-}, { timestamps: true });
+  wishlist: [{ type: Schema.Types.ObjectId, ref: 'Book' }],
+  finishedBooks: [{
+    bookId: { type: Schema.Types.ObjectId, ref: 'Book' },
+    finishedAt: { type: Date, default: Date.now }
+  }] 
+},{ timestamps: true });
 
 
 // Match user entered password to hashed password in database

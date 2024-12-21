@@ -42,6 +42,21 @@ const BookDetails = () => {
     }
   };
 
+  // Handle Add to Wishlist
+const handleAddToWishlist = async () => {
+  try {
+    const response = await axios.post("/api/wishlist", {
+      bookId: id,
+      userId: getCurrentUserId(), // Fetch current user ID
+    });
+    setMessage(response.data.message || "Book added to wishlist!");
+  } catch (err) {
+    console.error("Error adding book to wishlist:", err);
+    setMessage("Failed to add book to wishlist. Please try again.");
+  }
+};
+
+
   // Loading state
   if (loading) {
     return <div className="loading">Loading...</div>;
@@ -92,7 +107,10 @@ const BookDetails = () => {
         <button className="button" onClick={handleBorrowRequest}>
           Borrow this book
         </button>
-        <button className="button">Add to Wishlist</button>
+        <button className="button" onClick={handleAddToWishlist}>
+  Add to Wishlist
+</button>
+
       </div>
 
       {/* Message Display */}

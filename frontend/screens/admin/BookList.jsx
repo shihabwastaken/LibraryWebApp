@@ -236,10 +236,10 @@ const AdminBookList = () => {
                 <td>{book.publishedYear}</td>
                 <td>{book.availableCopies}</td>
                 <td>
-                  <button className="edit-button" onClick={() => handleEditBook(book)}>
+                  <button className="edit-button-bookList" onClick={() => handleEditBook(book)}>
                     Edit
                   </button>
-                  <button className="delete-button" onClick={() => handleDeleteBook(book._id)}>
+                  <button className="delete-button-bookList" onClick={() => handleDeleteBook(book._id)}>
                     Delete
                   </button>
                 </td>

@@ -134,7 +134,7 @@
     color: #333;
   }
   
-  .delete-button {
+  .delete-button-bookList {
     background-color: #dc3545;
     color: white;
     border: none;
@@ -143,11 +143,11 @@
     cursor: pointer;
   }
   
-  .delete-button:hover {
+  .delete-button-bookList:hover {
     background-color: #c82333;
   }
 
-  .edit-button {
+  .edit-button-bookList {
     background-color: #4791ac;
     color: white;
     border: none;
@@ -156,6 +156,6 @@
     cursor: pointer;
   }
 
-  .edit-button:hover {
+  .edit-button-bookList:hover {
     background-color: #00b6f9;
   }
