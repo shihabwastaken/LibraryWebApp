@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import '../../src/styles/BorrowList.css'; // Optional: Add your custom styles
+import '../../src/styles/BorrowList.css';
 
 const BorrowList = () => {
   const [borrowedBooks, setBorrowedBooks] = useState([]);

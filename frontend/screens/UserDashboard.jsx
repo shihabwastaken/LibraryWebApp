@@ -187,7 +187,7 @@ const UserDashboard = () => {
         <h2>Quick Links</h2>
         <button onClick={() => window.location.href = '/allbooks'}>Explore Books</button>
         <button onClick={() => window.location.href = '/history'}>Borrowing History</button>
-        <button onClick={() => window.location.href = '/wishlist'}>Wishlist</button>
+        <button onClick={() => window.location.href = '/wishlist-finishRead'}>Wishlist</button>
         {user.isAdmin && (
           <>
             <button onClick={() => window.location.href = '/admin/bookList'}>Manage Books</button>

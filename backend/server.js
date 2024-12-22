@@ -352,7 +352,7 @@ app.put('/api/users/change-password/:userId', async (req, res) => {
 //Dashboard routes end
 
 
-
+//borrow history
 app.use("/api/borrow", borrowRoutes);
 
 // app.get('/api/borrowedBooks/overdue/:userId', async (req, res) => {
@@ -432,7 +432,7 @@ app.post("/api/return-request", async (req, res) => {
       return res.status(404).json({ message: "User not found." });
     }
 
-    // Check if the book is already in borrowedBooks for the user
+    // Check if the book is already in return request for the user
     const borrowedBook = user.borrowedBooks.find((book) => book.bookId.toString() === bookId.toString());
     if (!borrowedBook) {
       return res.status(404).json({ message: "This book is not borrowed by the user." });
@@ -555,6 +555,7 @@ app.get('/api/borrowedBooks/all', async (req, res) => {
 
 
 //wishlist and finished reading routes
+//add to wishlist
 app.post("/api/wishlist", async (req, res) => {
   const { bookId, userId } = req.body;
   try {

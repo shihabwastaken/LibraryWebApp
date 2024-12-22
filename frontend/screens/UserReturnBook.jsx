@@ -67,25 +67,25 @@ const UserBorrowedBooks = () => {
     }
   };
 
-  const handleRejectRequest = (bookId) => {
-    // Reset the return request status after rejection
-    setReturnRequests((prev) => {
-      const newReturnRequests = { ...prev, [bookId]: "rejected" };
-      // Update localStorage
-      localStorage.setItem("returnRequests", JSON.stringify(newReturnRequests));
-      return newReturnRequests;
-    });
-  };
+  // const handleRejectRequest = (bookId) => {
+  //   // Reset the return request status after rejection
+  //   setReturnRequests((prev) => {
+  //     const newReturnRequests = { ...prev, [bookId]: "rejected" };
+  //     // Update localStorage
+  //     localStorage.setItem("returnRequests", JSON.stringify(newReturnRequests));
+  //     return newReturnRequests;
+  //   });
+  // };
 
-  const handleApproveRequest = (bookId) => {
-    // Mark as approved (optional)
-    setReturnRequests((prev) => {
-      const newReturnRequests = { ...prev, [bookId]: "approved" };
-      // Update localStorage
-      localStorage.setItem("returnRequests", JSON.stringify(newReturnRequests));
-      return newReturnRequests;
-    });
-  };
+  // const handleApproveRequest = (bookId) => {
+  //   // Mark as approved (optional)
+  //   setReturnRequests((prev) => {
+  //     const newReturnRequests = { ...prev, [bookId]: "approved" };
+  //     // Update localStorage
+  //     localStorage.setItem("returnRequests", JSON.stringify(newReturnRequests));
+  //     return newReturnRequests;
+  //   });
+  // };
 
   if (loading) return <p>Loading borrowed books...</p>;
   if (error) return <p>{error}</p>;
