@@ -21,6 +21,7 @@ import AdminBorrowRequests from "../screens/admin/AdminBorrowRequest.jsx";
 import UserReturnBook from "../screens/UserReturnBook.jsx";
 import AdminApproveReturns from "../screens/admin/AdminApproveReturns.jsx";
 import UserWishlistAndFinishRead from "../screens/UserWishlistAndFinishRead.jsx";
+import Contract from "../screens/Contact.jsx";
 import AboutPage from "../screens/About.jsx";
 import BorrowList from "../screens/admin/BorrowList.jsx";
 
@@ -65,6 +66,7 @@ const App = () => {
           <Route path="/wishlist-finishRead" element={<UserWishlistAndFinishRead />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/admin/borrowList" element={<BorrowList />} />
+          <Route path="/contract" element={<Contract />} />
         </Routes>
 
 
