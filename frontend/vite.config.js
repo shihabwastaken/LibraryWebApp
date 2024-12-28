@@ -25,4 +25,8 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    outDir: 'build', // Change output folder name to 'build'
+    sourcemap: true, // Optional: Generate source maps for debugging
+  },
 });

@@ -224,6 +224,9 @@ import { clearCurrentUserId, getCurrentUserId } from '../../globalUser';
 const Header = () => {
   const [overdueBooks, setOverdueBooks] = useState([]);
   const [showNotification, setShowNotification] = useState(false);
+  const [isNavOpen, setIsNavOpen] = useState(false); // State to control navbar collapse
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false); // State to control user dropdown
+  const [isAdminDropdownOpen, setIsAdminDropdownOpen] = useState(false); // State to control admin dropdown
 
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -232,6 +235,7 @@ const Header = () => {
   const [logoutApiCall] = useLogoutMutation();
 
   const notificationRef = useRef(null);
+  const navbarRef = useRef(null); // Reference for the entire navbar
 
   // Logout handler
   const logoutHandler = async () => {
@@ -269,18 +273,18 @@ const Header = () => {
     fetchOverdueBooks();
   }, [userInfo]);
 
-  // Handle outside click for notifications
+  // Handle outside click for notifications and navbar collapse
   useEffect(() => {
     const handleOutsideClick = (event) => {
-      if (
-        notificationRef.current &&
-        !notificationRef.current.contains(event.target)
-      ) {
-        setShowNotification(false);
+      // Check if the click is outside the navbar
+      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
+        setIsNavOpen(false); // Collapse navbar when clicking outside
+        setIsUserDropdownOpen(false); // Close user dropdown
+        setIsAdminDropdownOpen(false); // Close admin dropdown
       }
     };
 
-    if (showNotification) {
+    if (isNavOpen) {
       document.addEventListener('click', handleOutsideClick);
     } else {
       document.removeEventListener('click', handleOutsideClick);
@@ -289,7 +293,7 @@ const Header = () => {
     return () => {
       document.removeEventListener('click', handleOutsideClick);
     };
-  }, [showNotification]);
+  }, [isNavOpen]);
 
   const handleNotificationClick = () => {
     setShowNotification((prev) => !prev);
@@ -300,56 +304,78 @@ const Header = () => {
     navigate('/returnBook');
   };
 
+  const handleNavLinkClick = () => {
+    setIsNavOpen(false); // Close the navbar when any link is clicked
+  };
+
+  const handleDropdownClick = (dropdown) => {
+    if (dropdown === 'user') {
+      setIsUserDropdownOpen((prev) => !prev);
+      setIsAdminDropdownOpen(false); // Close the admin dropdown if open
+    } else if (dropdown === 'admin') {
+      setIsAdminDropdownOpen((prev) => !prev);
+      setIsUserDropdownOpen(false); // Close the user dropdown if open
+    }
+  };
+
   return (
     <header>
-      <Navbar expand="lg" bg="dark" variant="dark" collapseOnSelect>
+      <Navbar expand="lg" bg="dark" variant="dark" collapseOnSelect ref={navbarRef}>
         <Container>
           <Link to="/" className="navbar-brand">
             🕮 LibGen
           </Link>
-          <Navbar.Toggle aria-controls="navbarNav" />
-          <Navbar.Collapse id="navbarNav">
+          <Navbar.Toggle
+            aria-controls="navbarNav"
+            onClick={() => setIsNavOpen(!isNavOpen)} // Toggle the collapse manually
+          />
+          <Navbar.Collapse id="navbarNav" in={isNavOpen}> {/* Use "in" prop to control collapse state */}
             <Nav className="ms-auto">
               <li className="nav-item">
-               <Link
-                to="/allbooks"
-                className="nav-link"
-                onClick={() => handleNavLinkClick('bookshelf')}
-              >
-                <FaBook /> Bookshelf
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to="/filterBooks"
-                className="nav-link"
-                onClick={() => handleNavLinkClick('genres')}
-              >
-                <FaList /> Filter Books
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to="/contract"
-                className="nav-link"
-                onClick={() => handleNavLinkClick('contract')}
-              >
-                <FaFileAlt /> Contract
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                to="/about"
-                className="nav-link"
-                onClick={() => handleNavLinkClick('about')}
-              >
-                <FaInfoCircle /> About
-              </Link>
-            </li>
+                <Link
+                  to="/allbooks"
+                  className="nav-link"
+                  onClick={handleNavLinkClick}
+                >
+                  <FaBook /> Bookshelf
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  to="/filterBooks"
+                  className="nav-link"
+                  onClick={handleNavLinkClick}
+                >
+                  <FaList /> Filter Books
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  to="/contract"
+                  className="nav-link"
+                  onClick={handleNavLinkClick}
+                >
+                  <FaFileAlt /> Contract
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  to="/about"
+                  className="nav-link"
+                  onClick={handleNavLinkClick}
+                >
+                  <FaInfoCircle /> About
+                </Link>
+              </li>
 
               {userInfo ? (
                 <>
-                  <NavDropdown title={userInfo.name} id="username">
+                  <NavDropdown
+                    title={userInfo.name}
+                    id="username"
+                    show={isUserDropdownOpen}
+                    onClick={() => handleDropdownClick('user')}
+                  >
                     <NavDropdown.Item as={Link} to="/profile">
                       <FaUser /> Profile
                     </NavDropdown.Item>
@@ -373,7 +399,12 @@ const Header = () => {
                 </Nav.Link>
               )}
               {userInfo && userInfo.isAdmin && (
-                <NavDropdown title="Admin" id="adminmenu">
+                <NavDropdown
+                  title="Admin"
+                  id="adminmenu"
+                  show={isAdminDropdownOpen}
+                  onClick={() => handleDropdownClick('admin')}
+                >
                   <NavDropdown.Item as={Link} to="/admin/bookList">
                     Book List
                   </NavDropdown.Item>
@@ -392,10 +423,7 @@ const Header = () => {
                 </NavDropdown>
               )}
               {overdueBooks.length > 0 && (
-                <li
-                  className="nav-link position-relative"
-                  ref={notificationRef}
-                >
+                <li className="nav-link position-relative" ref={notificationRef}>
                   <FaBell
                     style={{ color: 'red', cursor: 'pointer' }}
                     onClick={handleNotificationClick}
