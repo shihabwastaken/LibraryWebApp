@@ -109,4 +109,66 @@
     font-size: 18px;
     font-weight: bold;
   }
-  
+  .view-toggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.view-toggle button {
+    margin: 0 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.view-toggle button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.book-card.front img {
+    width: 150px;
+    height: 230px;
+}
+
+.book-card.side .book-side-view {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 230px;
+  background-color: pink;
+  writing-mode: vertical-lr; /* Changed to vertical-lr for bottom-to-top text */
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transform: rotate(180deg); /* Rotates the text to achieve bottom-to-top alignment */
+  text-decoration: none; /* Removes the underline from the text */
+}
+
+.book-card.side{
+  width: 40px;
+  height: 230px;
+  background-color: pink;
+}
+
+
+.finished-indicator {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: green;
+    color: white;
+    padding: 0.2rem;
+    border-radius: 50%;
+    font-size: 1rem;
+}
+ .book-link {
+  text-decoration: none; /* Removes the underline from the Link */
+  color: black;
+  background-color: randomColor(); /* Generates a random color for the background */
+}
