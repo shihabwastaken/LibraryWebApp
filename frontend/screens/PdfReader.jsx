@@ -78,6 +78,24 @@ const PdfReader = () => {
     navigate(`/book/${book._id}/details`);
   };
 
+  const handleIframeLoad = () => {
+    adjustIframeSize(); // Adjust size once the iframe content is fully loaded
+  };
+
+  const handleFinishedReading = async () => {
+    try {
+      // console.log(id,getCurrentUserId());
+      const response = await axios.post("/api/finished-reading", {
+        bookId: id,
+        userId: getCurrentUserId(), // Fetch current user ID
+      });
+      alert(response.data.message || "Book marked as finished!");
+    } catch (err) {
+      console.error("Error marking book as finished:", err);
+      alert("Failed to mark book as finished. Please try again.");
+    }
+  };
+
   if (!book) {
     return <div>Loading...</div>;
   }
@@ -107,6 +125,9 @@ const PdfReader = () => {
         </button>
         <button onClick={handleBookDetails} className="button">
           Book Details
+        </button>
+        <button onClick={handleFinishedReading} className="button">
+          Mark Finished Reading
         </button>
       </div>
     </div>

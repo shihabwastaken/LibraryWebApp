@@ -5,6 +5,7 @@ import User from './models/User.js';
 import express from 'express';
 import connectDB from './config/db.js';
 import dotenv from 'dotenv';
+import path from 'path';
 // import bookRoutes from './routes/bookRoutes.js';
 import cors from 'cors';
 // import books from './books.js';
@@ -32,10 +33,14 @@ const port = process.env.PORT || 5000;
 connectDB();
 
 
+
+
 // app.use(cors());
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+
 app.use('/api/users', userRoutes);
 app.use('/api/admin', adminRoutes);
 
@@ -57,7 +62,7 @@ app.get('/api', async (req, res) => {
 });
 
 // app.get('/api/search', async (req, res) => {
-//   try {
+  //   try {
 //     const { query } = req.query;
 //     const books = await Book.find({
 //       $or: [
@@ -120,7 +125,7 @@ app.get('/api/bookshelf/:id/details', async (req, res) => {
 
 
 // app.get('/api/userDashboard', async (req, res) => {
-//   try {
+  //   try {
 //     // Get all users or just one user based on your needs
 //     const users = await User.find({}, { password: 0 }); // Exclude password field
 
@@ -166,11 +171,11 @@ app.get('/api/books/dropdown-options', async (req, res) => {
 });
 
 // app.delete('/users/:id', async (req, res) => {
-//   try {
-//     const userId = req.params.id;
-//     const user = await User.findByIdAndDelete(userId); // Ensure you're using the correct database query
+  //   try {
+    //     const userId = req.params.id;
+    //     const user = await User.findByIdAndDelete(userId); // Ensure you're using the correct database query
 
-//     if (!user) {
+    //     if (!user) {
 //       return res.status(404).json({ message: 'User not found' }); // Handle case where user doesn't exist
 //     }
 
@@ -226,7 +231,7 @@ app.post("/api/borrow", async (req, res) => {
 app.get('/api/borrow/:bookId/status', async (req, res) => {
   const { bookId } = req.params;
   const { userId } = req.query;
-
+  
   const borrowRecord = await Borrow.findOne({ bookId, userId });
   if (borrowRecord) {
     res.json({ isBorrowed: true });
@@ -238,7 +243,7 @@ app.get('/api/borrow/:bookId/status', async (req, res) => {
 app.delete('/api/borrow/:bookId', async (req, res) => {
   const { bookId } = req.params;
   const { userId } = req.body;
-
+  
   try {
     await Borrow.deleteOne({ bookId, userId });
     res.json({ message: "Borrow request canceled successfully." });
@@ -280,21 +285,21 @@ app.put('/api/users/profile/:id', async (req, res) => {
   const { name, email, password } = req.body;
   try {
     const user = await User.findById(req.params.id);
-
+    
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-
+    
     // Update fields
     if (name) user.name = name;
     if (email) user.email = email;
-
+    
     // Hash password if it's being updated
     // if (password) {
     //   const salt = await bcrypt.genSalt(10);
     //   user.password = await bcrypt.hash(password, salt);
     // }
-
+    
     const updatedUser = await user.save();
     res.status(200).json({
       id: updatedUser._id,
@@ -315,13 +320,13 @@ app.put('/api/users/profile/:id', async (req, res) => {
 app.put('/api/users/change-password/:userId', async (req, res) => {
   const { userId } = req.params;
   const { currentPassword, newPassword, confirmPassword } = req.body;
-
+  
   try {
     // Validate input
     if (!currentPassword || !newPassword || !confirmPassword) {
       return res.status(400).json({ message: 'All fields are required' });
     }
-
+    
     if (newPassword !== confirmPassword) {
       return res.status(400).json({ message: 'New passwords do not match' });
     }
@@ -337,7 +342,7 @@ app.put('/api/users/change-password/:userId', async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ message: 'Current password is incorrect' });
     }
-
+    
     // Update password
     user.password = newPassword; // The 'pre-save' hook will handle hashing
     await user.save();
@@ -356,11 +361,11 @@ app.put('/api/users/change-password/:userId', async (req, res) => {
 app.use("/api/borrow", borrowRoutes);
 
 // app.get('/api/borrowedBooks/overdue/:userId', async (req, res) => {
-//   const { userId } = req.params;
+  //   const { userId } = req.params;
   
 //   // Example logic to fetch overdue books
 //   const overdueBooks = await BorrowedBook.find({ userId, returnDate: { $lt: new Date() }, returned: false });
-  
+
 //   res.json(overdueBooks);
 // });
 
@@ -369,7 +374,7 @@ app.use("/api/borrow", borrowRoutes);
 app.get('/api/users/overdueBooks/:id', async (req, res) => {
   const userId = req.params.id; // Fetch the user ID from the route parameter
   // console.log('User ID from params:', userId);
-
+  
   try {
     // Find the user by ID and populate borrowed books
     const user = await User.findById(userId).populate('borrowedBooks.bookId');
@@ -462,7 +467,7 @@ app.get('/api/return-requests', async (req, res) => {
     const requests = await ReturnRequest.find()
       .populate('userId', 'name')
       .populate('bookId', 'title author coverImageLink');
-
+      
     res.status(200).json(requests);
   } catch (error) {
     console.error('Error fetching return requests:', error);
@@ -475,7 +480,7 @@ app.get('/api/return-requests', async (req, res) => {
 // Approve return request
 app.put('/api/return-requests/:id/approve', async (req, res) => {
   const { id } = req.params;
-
+  
   try {
     // Step 1: Find the return request
     const returnRequest = await ReturnRequest.findById(id);
@@ -504,7 +509,7 @@ app.put('/api/return-requests/:id/approve', async (req, res) => {
 
     // Step 5: Remove the return request from the ReturnRequest collection
     await ReturnRequest.findByIdAndDelete(id);
-
+    
     // Step 6: Optional: Update the book's available copies count if you have this field
     const book = await Book.findById(returnRequest.bookId);
     if (book) {
@@ -568,7 +573,7 @@ app.post("/api/wishlist", async (req, res) => {
 
     user.wishlist.push(bookId);
     await user.save();
-
+    
     res.status(200).json({ message: "Book added to wishlist" });
   } catch (error) {
     console.error("Error adding to wishlist:", error);
@@ -589,11 +594,11 @@ app.post('/api/finished-reading', async (req, res) => {
   try {
     const user = await User.findById(userId);
     const book = await Book.findById(bookId);
-
+    
     if (!user || !book) {
       return res.status(404).json({ error: 'User or book not found' });
     }
-
+    
     // Create a finished book object
     const finishedBook = {
       bookId: book._id,
@@ -613,7 +618,7 @@ app.post('/api/finished-reading', async (req, res) => {
     user.wishlist = user.wishlist.filter((item) => item.toString() !== bookId);
 
     await user.save();
-
+    
     // Respond with the updated finishedBooks array
     res.status(201).json(user.finishedBooks);
   } catch (error) {
@@ -659,7 +664,7 @@ app.post("/api/wishlist/remove", async (req, res) => {
     // Update the wishlist field in the database
     user.wishlist = updatedWishlist;
     await user.save();
-
+    
     res.status(200).json({ message: "Book removed from wishlist" });
   } catch (error) {
     console.error("Error removing from wishlist:", error);
@@ -673,14 +678,14 @@ app.post("/api/finished-reading/remove", async (req, res) => {
   try {
     const user = await User.findById(userId);
     if (!user) return res.status(404).json({ message: "User not found" });
-
+    
     // Filter out the bookId from finishedBooks
     const updatedFinishedBooks = user.finishedBooks.filter((book) => book.bookId.toString() !== bookId);
-
+    
     // Update the finishedBooks field in the database
     user.finishedBooks = updatedFinishedBooks;
     await user.save();
-
+    
     res.status(200).json({ message: "Book removed from finished reading" });
   } catch (error) {
     console.error("Error removing from finished reading:", error);
@@ -711,6 +716,39 @@ app.post("/api/finished-reading-timer", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+
+// const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, "frontend/dist")));
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+//   });
+// }
+// else {
+//   app.get("/", (req, res) => {
+//     res.send("API is running....");
+//   });
+// }
+
+
+const __dirname = path.resolve();
+
+// Serve static files from frontend/dist in production
+if (process.env.NODE_ENV === 'production') {
+  // Static folder
+  app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
+
+  // Serve the index.html file for all other routes
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
+  });
+} else {
+  app.get('/', (req, res) => {
+    res.send('API is running....');
+  });
+}
 
 
 app.use(notFound);
