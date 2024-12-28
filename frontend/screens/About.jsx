@@ -11,7 +11,7 @@ const AboutPage = () => {
 
       <section className="about-section">
         <div className="about-image">
-          <img src="https://media.makeameme.org/created/no-text-is-596883.jpg" alt="About Us" />
+          <img src="https://pics.craiyon.com/2023-11-07/331bc7aee1b84bff94c978a5dda6391b.webp" alt="About Us" />
         </div>
         <div className="about-info">
           <h2>Our Mission</h2>

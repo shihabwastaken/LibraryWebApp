@@ -24,9 +24,9 @@ const HomePage = () => {
     return (
         <>
         <h1 class="home-welcome">Ready to dive into a new adventure? Find your next favorite book today!</h1>
-        <SearchBar />
+        {/* <SearchBar /> */}
         <div className="bookshelf">
-        <h1 className="bookshelf-title">Newest Arrivals!</h1>
+        <h1 className="bookshelf-title">Our Newest Arrivals!</h1>
             <BookDisplay books={books} />
         </div>
         </>

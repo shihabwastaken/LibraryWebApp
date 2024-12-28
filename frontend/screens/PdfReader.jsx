@@ -9,6 +9,7 @@ const PdfReader = () => {
   const navigate = useNavigate();
   const [book, setBook] = useState(null);
   const iframeRef = useRef(null);
+  const [hasMarkedAsFinished, setHasMarkedAsFinished] = useState(false);
 
   useEffect(() => {
     const fetchBook = async () => {
@@ -22,6 +23,25 @@ const PdfReader = () => {
 
     fetchBook();
   }, [id]);
+
+  useEffect(() => {
+    const timer = setTimeout(async () => {
+      if (!hasMarkedAsFinished) {
+        try {
+          await axios.post("/api/finished-reading-timer", {
+            bookId: id,
+            userId: getCurrentUserId(), // Fetch current user ID
+          });
+          setHasMarkedAsFinished(true); // Prevent duplicate marking
+          console.log("Book marked as finished!");
+        } catch (err) {
+          console.error("Error marking book as finished:", err);
+        }
+      }
+    }, 30000); // 30 seconds timer
+
+    return () => clearTimeout(timer); // Clear timer on unmount
+  }, [id, hasMarkedAsFinished]);
 
   const adjustIframeSize = () => {
     if (iframeRef.current) {
@@ -50,10 +70,6 @@ const PdfReader = () => {
     return () => window.removeEventListener("resize", adjustIframeSize); // Clean up event listener
   }, []);
 
-  const handleIframeLoad = () => {
-    adjustIframeSize(); // Adjust size once the iframe content is fully loaded
-  };
-
   const handleGoBack = () => {
     navigate(-1); // Go back to the previous page
   };
@@ -61,21 +77,6 @@ const PdfReader = () => {
   const handleBookDetails = () => {
     navigate(`/book/${book._id}/details`);
   };
-
-  const handleFinishedReading = async () => {
-    try {
-      // console.log(id,getCurrentUserId());
-      const response = await axios.post("/api/finished-reading", {
-        bookId: id,
-        userId: getCurrentUserId(), // Fetch current user ID
-      });
-      alert(response.data.message || "Book marked as finished!");
-    } catch (err) {
-      console.error("Error marking book as finished:", err);
-      alert("Failed to mark book as finished. Please try again.");
-    }
-  };
-  
 
   if (!book) {
     return <div>Loading...</div>;
@@ -95,8 +96,7 @@ const PdfReader = () => {
           ref={iframeRef}
           src={book.pdfLink}
           title="PDF Viewer"
-          // frameBorder="0"
-          onLoad={handleIframeLoad}
+          onLoad={adjustIframeSize}
         ></iframe>
       </div>
 
@@ -107,9 +107,6 @@ const PdfReader = () => {
         </button>
         <button onClick={handleBookDetails} className="button">
           Book Details
-        </button>
-        <button onClick={handleFinishedReading} className="button">
-          Mark Finished Reading
         </button>
       </div>
     </div>

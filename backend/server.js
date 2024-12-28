@@ -688,7 +688,29 @@ app.post("/api/finished-reading/remove", async (req, res) => {
   }
 });
 
+app.post("/api/finished-reading-timer", async (req, res) => {
+  const { bookId, userId } = req.body;
 
+  try {
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    // Check if the book is already marked as finished
+    const alreadyFinished = user.finishedBooks.some(
+      (entry) => entry.bookId.toString() === bookId
+    );
+
+    if (!alreadyFinished) {
+      user.finishedBooks.push({ bookId });
+      await user.save();
+    }
+
+    res.json({ message: "Book marked as finished!" });
+  } catch (error) {
+    console.error("Error marking book as finished:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 
 app.use(notFound);
