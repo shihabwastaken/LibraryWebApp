@@ -21,7 +21,7 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin: 'http://localhost:3000', // Allow requests only from the frontend
+  origin: 'https://librarywebapp-nlbi.onrender.com/', // Allow requests only from the frontend
   methods: ['GET', 'POST', 'DELETE', 'PUT'],
   credentials: true, // Allow sending cookies if needed
 }));
