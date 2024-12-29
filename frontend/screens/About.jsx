@@ -5,8 +5,8 @@ const AboutPage = () => {
   return (
     <div className="about-page">
       <header className="about-header">
-        <h1>About Us..</h1>
-        <p>Learn more about our team and mission</p>
+        <h1>About Us</h1>
+        <p>Learn more about o ur team and mission</p>
       </header>
 
       <section className="about-section">
