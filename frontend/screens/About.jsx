@@ -16,7 +16,7 @@ const AboutPage = () => {
         <div className="about-info">
           <h2>Our Mission</h2>
           <p>
-            We aim to revolutionize the way people connect with books, creating a platform that allows users to easily manage and discover their favorite literature. Our goal is to provide a seamless, user-friendly experience while helping people grow their reading journey.
+            We aim to revolutionize the ways people connect with books, creating a platform that allows users to easily manage and discover their favorite literature. Our goal is to provide a seamless, user-friendly experience while helping people grow their reading journey.
           </p>
         </div>
       </section>
