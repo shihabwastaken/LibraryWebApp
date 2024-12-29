@@ -738,11 +738,11 @@ const __dirname = path.resolve();
 // Serve static files from frontend/dist in production
 if (process.env.NODE_ENV === 'production') {
   // Static folder
-  app.use(express.static(path.join(__dirname, 'frontend', 'build')));
+  app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 
   // Serve the index.html file for all other routes
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'));
   });
 } else {
   app.get('/', (req, res) => {

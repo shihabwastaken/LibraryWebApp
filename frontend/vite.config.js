@@ -24,9 +24,5 @@ export default defineConfig({
         secure: false, // If your backend doesn't use HTTPS
       },
     },
-  },
-  build: {
-    outDir: 'build', // Change output folder name to 'build'
-    sourcemap: true, // Optional: Generate source maps for debugging
-  },
+  }
 });
