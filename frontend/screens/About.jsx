@@ -5,7 +5,7 @@ const AboutPage = () => {
   return (
     <div className="about-page">
       <header className="about-header">
-        <h1>About Us</h1>
+        <h1>About Us..</h1>
         <p>Learn more about our team and mission</p>
       </header>
 
